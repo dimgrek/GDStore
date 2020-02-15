@@ -1,0 +1,52 @@
+﻿@model System.Collections.Generic.List<GDStore.DAL.Interface.Domain.Alteration>
+
+@{
+    ViewBag.Title = "Alterations for a selected customer";
+}
+<h2>Alterations for a selected customer</h2>
+
+@{
+    if (Model.Any())
+    {
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Customer Id</th>
+                <th>Status</th>
+                <th>Item Id to alter</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @if (item.SleeveId != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.SleeveId)
+                        }
+                    </td>
+                    <td>
+                        @if (item.TrouserLegId != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.TrouserLegId)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+        <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { CustomerId = Model.First()?.CustomerId }, new { @class = "btn btn-default" })</a>
+    }
+    else
+    {
+        <h2>No alterations found for this customer</h2>
+        <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { CustomerId = ViewBag.CustomerId }, new { @class = "btn btn-default" })</a>
+    }
+}

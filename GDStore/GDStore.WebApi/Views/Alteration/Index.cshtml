@@ -1,0 +1,54 @@
+﻿@model System.Collections.Generic.List<GDStore.DAL.Interface.Domain.Alteration>
+
+@{
+    ViewBag.Title = "All alterations";
+}
+<h2>All alterations</h2>
+
+@{
+    if (Model.Any())
+    {
+        <table class="table">
+            <tr>
+                <th>Alteration Id</th>
+                <th>Name</th>
+                <th>Customer Id</th>
+                <th>Status</th>
+                <th>Item Id to alter</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @if (item.SleeveId != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.SleeveId)
+                        }
+                    </td>
+                    <td>
+                        @if (item.TrouserLegId != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.TrouserLegId)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h2>No alterations added yet</h2>
+    }
+}
