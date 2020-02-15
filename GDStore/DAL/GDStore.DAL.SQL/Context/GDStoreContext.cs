@@ -7,7 +7,7 @@ namespace GDStore.DAL.SQL.Context
     {
         public GDStoreContext() : base("GDStoreContext")
         {
-            
+            Database.SetInitializer(new GDStoreContextInitializer());
         }
 
         public DbSet<Customer> Customer { get; set; }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\GDStoreContext.cs" />
+    <Compile Include="Context\GDStoreContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AlterationRepository.cs" />
     <Compile Include="Services\CustomerRepository.cs" />
@@ -56,6 +57,10 @@
     <Compile Include="Services\SuitRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Interfaces\GDStore.BLL.Interfaces.csproj">
+      <Project>{fe93a680-181b-4844-810e-dbe0f38f2fed}</Project>
+      <Name>GDStore.BLL.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
       <Project>{e2f25388-feb7-4fdf-8091-c4b10c008fb6}</Project>
       <Name>GDStore.DAL.Interface</Name>
