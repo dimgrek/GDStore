@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GDStore.Alterations.Messages.Commands;
 using GDStore.BLL.Interfaces.Models;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
+using GDStore.WebApi.CommandBus;
 using GDStore.WebApi.Models;
 
 namespace GDStore.WebApi.Services
@@ -15,66 +17,29 @@ namespace GDStore.WebApi.Services
         private readonly ISuitRepository suitRepository;
 
         private readonly IAlterationRepository alterationRepository;
-        //private readonly IAlterationsCommandBus alterationsCommandBus;
+        private readonly IAlterationsCommandBus alterationsCommandBus;
 
         public AlterationService(ICustomerRepository customerRepository,
                 ISuitRepository suitRepository,
-                IAlterationRepository alterationRepository)
-            //IAlterationsCommandBus alterationsCommandBus)
+                IAlterationRepository alterationRepository,
+            IAlterationsCommandBus alterationsCommandBus)
         {
             this.customerRepository = customerRepository;
             this.suitRepository = suitRepository;
             this.alterationRepository = alterationRepository;
-            //this.alterationsCommandBus = alterationsCommandBus;
+            this.alterationsCommandBus = alterationsCommandBus;
         }
 
         public async Task AddAlteration(AlterationModel model)
         {
-
-            var suit = suitRepository.GetSuitByCustomerId(model.CustomerId);
-            var alteration = new Alteration
+            await alterationsCommandBus.SendAsync(new AddAlterationCommand
             {
-                Name = model.Name,
-                Status = AlterationStatus.Created,
+                CustomerId = model.CustomerId,
+                Item = model.Item,
                 Length = model.Length,
-                CustomerId = model.CustomerId
-            };
-
-            if (model.Item == Item.Sleeve)
-            {
-                var sleeve = suit.Sleeves.FirstOrDefault(x => x.Side == model.Side);
-                if (sleeve != null)
-                {
-                    alteration.SleeveId = sleeve.Id;
-                }
-            }
-
-            if (model.Item == Item.TrouserLeg)
-            {
-                var trouserLeg = suit.TrouserLegs.FirstOrDefault(x => x.Side == model.Side);
-                if (trouserLeg != null)
-                {
-                    alteration.TrouserLegId = trouserLeg.Id;
-                }
-            }
-
-            var customer = await customerRepository.GetByIdAsync(model.CustomerId);
-
-            if (customer.Alterations == null)
-            {
-                customer.Alterations = new List<Alteration>();
-            }
-
-            customer.Alterations.Add(alteration);
-            await customerRepository.SaveChangesAsync();
-            //await alterationsCommandBus.SendAsync(new AddAlterationCommand
-            //{
-            //    CustomerId = model.CustomerId,
-            //    Item = model.Item,
-            //    Length = model.Length,
-            //    Name = model.Name,
-            //    Side = model.Side
-            //});
+                Name = model.Name,
+                Side = model.Side
+            });
         }
 
         public List<Alteration> GetAllByCustomerId(Guid customerId)

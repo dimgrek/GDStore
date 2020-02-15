@@ -7,6 +7,9 @@ using GDStore.WebApi.Services;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
+using System.Configuration;
+using GDStore.WebApi.CommandBus;
+using MassTransit;
 
 namespace GDStore.WebApi
 {
@@ -42,19 +45,42 @@ namespace GDStore.WebApi
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // NOTE: To load from web.config uncomment the line below.
-            // Make sure to add a Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
-
-            // TODO: Register your type's mappings here.
-            // container.RegisterType<IProductRepository, ProductRepository>();
-
             var gdStoreContext = new GDStoreContext();
 
             container.RegisterType<ICustomerRepository, CustomerRepository>(new InjectionConstructor(gdStoreContext));
             container.RegisterType<ISuitRepository, SuitRepository>(new InjectionConstructor(gdStoreContext));
             container.RegisterType<IAlterationRepository, AlterationRepository>(new InjectionConstructor(gdStoreContext));
             container.RegisterType<IAlterationService, AlterationService>(new PerRequestLifetimeManager());
+
+            var rabbitMqUri = ConfigurationManager.ConnectionStrings["GDStore.RabbitMq.ConnectionString"].ConnectionString;
+            if (string.IsNullOrEmpty(rabbitMqUri))
+            {
+                throw new ConfigurationErrorsException("RabbitMq connectionString is empty");
+            }
+
+            //var queueName = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueName"];
+            //if (string.IsNullOrEmpty(queueName))
+            //{
+            //    throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ.QueueName is empty");
+            //}
+
+            var queueURI = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueURI"];
+            if (string.IsNullOrEmpty(queueURI))
+            {
+                throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ is empty");
+            }
+
+            var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
+            {
+                cfg.Host(new Uri(rabbitMqUri), h => { });
+                //cfg.UseLog4Net();
+            });
+
+            //Command buses 
+            container.RegisterInstance(bus);
+            container.RegisterType<IAlterationsCommandBus, AlterationsesCommandBus>(
+                new PerRequestLifetimeManager(),
+                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(queueURI)));
         }
     }
 }
