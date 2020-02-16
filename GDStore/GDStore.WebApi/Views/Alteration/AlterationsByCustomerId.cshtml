@@ -14,32 +14,34 @@
                 <th>Customer Id</th>
                 <th>Status</th>
                 <th>Item Id to alter</th>
+                <th>Payment</th>
             </tr>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @if (item.SleeveId != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.SleeveId)
-                        }
-                    </td>
-                    <td>
-                        @if (item.TrouserLegId != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.TrouserLegId)
-                        }
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @if (item.SleeveId != null)
+                {
+                    @Html.DisplayFor(modelItem => item.SleeveId)
+                }
+                @if (item.TrouserLegId != null)
+                {
+                    @Html.DisplayFor(modelItem => item.TrouserLegId)
+                }
+            </td>
+            <td>
+                <a>@Html.ActionLink("Make payment", "Make", "Payment", new { Model.First()?.CustomerId, AlterationId = item.Id }, new { @class = "btn btn-default" })</a>
+            </td>
+        </tr>
             }
         </table>
         <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { CustomerId = Model.First()?.CustomerId }, new { @class = "btn btn-default" })</a>

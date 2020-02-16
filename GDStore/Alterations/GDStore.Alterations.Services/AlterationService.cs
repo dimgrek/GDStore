@@ -12,11 +12,13 @@ namespace GDStore.Alterations.Services
     {
         private readonly ISuitRepository suitRepository;
         private readonly ICustomerRepository customerRepository;
+        private readonly IAlterationRepository alterationRepository;
 
-        public AlterationService(ISuitRepository suitRepository, ICustomerRepository customerRepository)
+        public AlterationService(ISuitRepository suitRepository, ICustomerRepository customerRepository, IAlterationRepository alterationRepository)
         {
             this.suitRepository = suitRepository;
             this.customerRepository = customerRepository;
+            this.alterationRepository = alterationRepository;
         }
 
         public async Task AddAlteration(AddAlterationCommand command)
@@ -57,6 +59,16 @@ namespace GDStore.Alterations.Services
 
             customer.Alterations.Add(alteration);
             await customerRepository.SaveChangesAsync();
+        }
+
+        public async Task MakeAlteration(MakeAlterationCommand command)
+        {
+            var alteration = await alterationRepository.GetByIdAsync(command.AlterationId);
+            if (alteration != null)
+            {
+                alteration.Status = AlterationStatus.Finished;
+                await alterationRepository.SaveChangesAsync();
+            }
         }
     }
 }

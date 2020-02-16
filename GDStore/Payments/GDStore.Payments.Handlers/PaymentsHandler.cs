@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GDStore.Payments.Messages.Commands;
 using GDStore.Payments.Services;
+using GDStore.Payments.Services.Services;
 using MassTransit;
 
 namespace GDStore.Payments.Handlers

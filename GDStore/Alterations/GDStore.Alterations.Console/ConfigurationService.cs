@@ -29,6 +29,7 @@ namespace GDStore.Alterations.Console
 
             container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
             container.RegisterType<ICustomerRepository, CustomerRepository>(new TransientLifetimeManager());
+            container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
             container.RegisterType<IAlterationService, AlterationService>(new TransientLifetimeManager());
 
             RabbitMQConfiguration();

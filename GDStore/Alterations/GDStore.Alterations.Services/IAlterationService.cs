@@ -6,5 +6,6 @@ namespace GDStore.Alterations.Services
     public interface IAlterationService
     {
         Task AddAlteration(AddAlterationCommand command);
+        Task MakeAlteration(MakeAlterationCommand command);
     }
 }

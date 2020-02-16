@@ -17,10 +17,10 @@ namespace GDStore.Payments.Console
                 throw new ConfigurationErrorsException("RabbitMq connectionString is empty");
             }
 
-            var queueName = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueName"];
+            var queueName = ConfigurationManager.AppSettings["GDStore.Payments.RabbitMQ.QueueName"];
             if (string.IsNullOrEmpty(queueName))
             {
-                throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ.QueueName is empty");
+                throw new ConfigurationErrorsException("GDStore.Payments.RabbitMQ.QueueName is empty");
             }
 
             var service = new ConfigurationService(rabbitMqUri, queueName);

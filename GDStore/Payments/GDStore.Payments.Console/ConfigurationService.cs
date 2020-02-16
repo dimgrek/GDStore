@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Configuration;
+using GDStore.DAL.Interface.Services;
+using GDStore.DAL.SQL.Services;
 using GDStore.Payments.Handlers;
 using GDStore.Payments.Services;
+using GDStore.Payments.Services.CommandBus;
+using GDStore.Payments.Services.Services;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace GDStore.Payments.Console
@@ -25,6 +31,7 @@ namespace GDStore.Payments.Console
         {
             container = new UnityContainer();
 
+            container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
             container.RegisterType<IPaymentsService, PaymentsService>(new TransientLifetimeManager());
 
             RabbitMQConfiguration();
@@ -45,6 +52,16 @@ namespace GDStore.Payments.Console
             });
 
             container.RegisterInstance(bus);
+
+            var alterationsQueue = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueURI"];
+            if (string.IsNullOrEmpty(alterationsQueue))
+            {
+                throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ is empty");
+            }
+
+            container.RegisterType<IAlterationsCommandBus, AlterationsCommandBus>(
+                new TransientLifetimeManager(),
+                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(alterationsQueue)));
 
             try
             {

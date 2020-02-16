@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GreenPipes, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\GreenPipes.3.0.0\lib\net461\GreenPipes.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GreenPipes, Version=2.1.2.111, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\GreenPipes.2.1.2\lib\net452\GreenPipes.dll</HintPath>
     </Reference>
     <Reference Include="MassTransit, Version=5.1.5.1633, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MassTransit.5.1.5\lib\net452\MassTransit.dll</HintPath>
@@ -67,6 +73,7 @@
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -110,6 +117,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Interfaces\GDStore.BLL.Interfaces.csproj">
+      <Project>{fe93a680-181b-4844-810e-dbe0f38f2fed}</Project>
+      <Name>GDStore.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Services\GDStore.BLL.Services.csproj">
+      <Project>{aba0133c-4898-459c-8c11-cd703cd98721}</Project>
+      <Name>GDStore.BLL.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
+      <Project>{e2f25388-feb7-4fdf-8091-c4b10c008fb6}</Project>
+      <Name>GDStore.DAL.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.SQL\GDStore.DAL.SQL.csproj">
+      <Project>{fa3a6c39-c758-496b-afdf-8b4715c32564}</Project>
+      <Name>GDStore.DAL.SQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.Payments.Handlers\GDStore.Payments.Handlers.csproj">
       <Project>{d1a664b9-4e5b-49ec-b4fa-d9005961eb6e}</Project>
       <Name>GDStore.Payments.Handlers</Name>

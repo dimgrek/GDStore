@@ -51,6 +51,7 @@ namespace GDStore.WebApi
             container.RegisterType<ISuitRepository, SuitRepository>(new InjectionConstructor(gdStoreContext));
             container.RegisterType<IAlterationRepository, AlterationRepository>(new InjectionConstructor(gdStoreContext));
             container.RegisterType<IAlterationService, AlterationService>(new PerRequestLifetimeManager());
+            container.RegisterType<IPaymentService, PaymentService>(new PerRequestLifetimeManager());
 
             var rabbitMqUri = ConfigurationManager.ConnectionStrings["GDStore.RabbitMq.ConnectionString"].ConnectionString;
             if (string.IsNullOrEmpty(rabbitMqUri))
@@ -64,10 +65,16 @@ namespace GDStore.WebApi
             //    throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ.QueueName is empty");
             //}
 
-            var queueURI = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueURI"];
-            if (string.IsNullOrEmpty(queueURI))
+            var alterationsQueue = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueURI"];
+            if (string.IsNullOrEmpty(alterationsQueue))
             {
                 throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ is empty");
+            }
+
+            var paymentsQueue = ConfigurationManager.AppSettings["GDStore.Payments.RabbitMQ.QueueURI"];
+            if (string.IsNullOrEmpty(alterationsQueue))
+            {
+                throw new ConfigurationErrorsException("GDStore.Payments.RabbitMQ is empty");
             }
 
             var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -80,7 +87,11 @@ namespace GDStore.WebApi
             container.RegisterInstance(bus);
             container.RegisterType<IAlterationsCommandBus, AlterationsCommandBus>(
                 new PerRequestLifetimeManager(),
-                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(queueURI)));
+                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(alterationsQueue)));
+
+            container.RegisterType<IPaymentsCommandBus, PaymentsCommandBus>(
+                new PerRequestLifetimeManager(),
+                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(paymentsQueue)));
         }
     }
 }

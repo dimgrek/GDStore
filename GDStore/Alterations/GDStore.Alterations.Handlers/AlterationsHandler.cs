@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace GDStore.Alterations.Handlers
 {
-    public class AlterationsHandler : IConsumer<AddAlterationCommand>
+    public class AlterationsHandler : IConsumer<AddAlterationCommand>, IConsumer<MakeAlterationCommand>
     {
         private readonly IAlterationService alterationService;
 
@@ -16,6 +16,11 @@ namespace GDStore.Alterations.Handlers
         public async Task Consume(ConsumeContext<AddAlterationCommand> context)
         {
             await alterationService.AddAlteration(context.Message);
+        }
+
+        public async Task Consume(ConsumeContext<MakeAlterationCommand> context)
+        {
+            await alterationService.MakeAlteration(context.Message);
         }
     }
 }

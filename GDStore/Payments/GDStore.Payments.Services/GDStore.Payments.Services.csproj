@@ -31,8 +31,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GreenPipes, Version=2.1.2.111, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\GreenPipes.2.1.2\lib\net452\GreenPipes.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit, Version=5.1.5.1633, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MassTransit.5.1.5\lib\net452\MassTransit.dll</HintPath>
+    </Reference>
+    <Reference Include="NewId, Version=3.0.1.17, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NewId.3.0.1\lib\net452\NewId.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +60,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPaymentsService.cs" />
-    <Compile Include="PaymentsService.cs" />
+    <Compile Include="CommandBus\AlterationsCommandBus.cs" />
+    <Compile Include="CommandBus\IAlterationsCommandBus.cs" />
+    <Compile Include="Services\IPaymentsService.cs" />
+    <Compile Include="Services\PaymentsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Alterations\GDStore.Alterations.Messages\GDStore.Alterations.Messages.csproj">
+      <Project>{fe25eacd-7b43-4bd7-a27e-2187207de803}</Project>
+      <Name>GDStore.Alterations.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Interfaces\GDStore.BLL.Interfaces.csproj">
+      <Project>{fe93a680-181b-4844-810e-dbe0f38f2fed}</Project>
+      <Name>GDStore.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Services\GDStore.BLL.Services.csproj">
+      <Project>{aba0133c-4898-459c-8c11-cd703cd98721}</Project>
+      <Name>GDStore.BLL.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
+      <Project>{e2f25388-feb7-4fdf-8091-c4b10c008fb6}</Project>
+      <Name>GDStore.DAL.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.SQL\GDStore.DAL.SQL.csproj">
+      <Project>{fa3a6c39-c758-496b-afdf-8b4715c32564}</Project>
+      <Name>GDStore.DAL.SQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.Payments.Messages\GDStore.Payments.Messages.csproj">
       <Project>{af4f32c9-aa66-4422-92f4-dc59b723d5f4}</Project>
       <Name>GDStore.Payments.Messages</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

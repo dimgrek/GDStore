@@ -12,19 +12,12 @@ namespace GDStore.WebApi.Services
 {
     public class AlterationService : IAlterationService
     {
-        private readonly ICustomerRepository customerRepository;
-        private readonly ISuitRepository suitRepository;
-
         private readonly IAlterationRepository alterationRepository;
         private readonly IAlterationsCommandBus alterationsCommandBus;
 
-        public AlterationService(ICustomerRepository customerRepository,
-                ISuitRepository suitRepository,
-                IAlterationRepository alterationRepository,
+        public AlterationService(IAlterationRepository alterationRepository,
             IAlterationsCommandBus alterationsCommandBus)
         {
-            this.customerRepository = customerRepository;
-            this.suitRepository = suitRepository;
             this.alterationRepository = alterationRepository;
             this.alterationsCommandBus = alterationsCommandBus;
         }
