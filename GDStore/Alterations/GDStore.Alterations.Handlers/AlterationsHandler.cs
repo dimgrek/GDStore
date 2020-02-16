@@ -1,18 +1,21 @@
 ﻿using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
+using GDStore.Alterations.Services;
 using MassTransit;
 
 namespace GDStore.Alterations.Handlers
 {
     public class AlterationsHandler : IConsumer<AddAlterationCommand>
     {
-        public AlterationsHandler()
+        private readonly IAlterationService alterationService;
+
+        public AlterationsHandler(IAlterationService alterationService)
         {
-            
+            this.alterationService = alterationService;
         }
-        public Task Consume(ConsumeContext<AddAlterationCommand> context)
+        public async Task Consume(ConsumeContext<AddAlterationCommand> context)
         {
-            throw new System.NotImplementedException();
+            await alterationService.AddAlteration(context.Message);
         }
     }
 }

@@ -14,21 +14,18 @@ namespace GDStore.Alterations.Console
     {
         private string rabbitMqUri;
         private string queueName;
-        private string queueURI;
         private UnityContainer container;
         private IBusControl bus;
 
-        public ConfigurationService(string rabbitMqUri, string queueName, string queueURI)
+        public ConfigurationService(string rabbitMqUri, string queueName)
         {
             this.rabbitMqUri = rabbitMqUri;
             this.queueName = queueName;
-            this.queueURI = queueURI;
         }
 
         public bool Start()
         {
             container = new UnityContainer();
-
 
             container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
             container.RegisterType<ICustomerRepository, CustomerRepository>(new TransientLifetimeManager());

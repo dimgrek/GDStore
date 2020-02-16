@@ -6,7 +6,7 @@ using GDStore.DAL.Interface.Domain;
 
 namespace GDStore.DAL.SQL.Context
 {
-    public class GDStoreContextInitializer : DropCreateDatabaseAlways<GDStoreContext>
+    public class GDStoreContextInitializer : DropCreateDatabaseIfModelChanges<GDStoreContext>
     {
         protected override void Seed(GDStoreContext context)
         {

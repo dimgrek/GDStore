@@ -18,13 +18,8 @@ namespace GDStore.Alterations.Console
                 throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ.QueueName is empty");
             }
 
-            var queueURI = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueURI"];
-            if (string.IsNullOrEmpty(queueURI))
-            {
-                throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ is empty");
-            }
-            var service = new ConfigurationService(rabbitMqUri, queueName, queueURI);
-
+            var service = new ConfigurationService(rabbitMqUri, queueName);
+            service.Start();
         }
     }
 }

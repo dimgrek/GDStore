@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
-using GDStore.BLL.Interfaces.Models;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using GDStore.WebApi.CommandBus;

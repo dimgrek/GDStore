@@ -72,6 +72,10 @@
       <Project>{fe25eacd-7b43-4bd7-a27e-2187207de803}</Project>
       <Name>GDStore.Alterations.Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GDStore.Alterations.Services\GDStore.Alterations.Services.csproj">
+      <Project>{4d53c68c-39f5-48a9-8a20-f5c038d1123f}</Project>
+      <Name>GDStore.Alterations.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,6 +18,7 @@ namespace GDStore.Alterations.Services
             this.suitRepository = suitRepository;
             this.customerRepository = customerRepository;
         }
+
         public async Task AddAlteration(AddAlterationCommand command)
         {
             var suit = suitRepository.GetSuitByCustomerId(command.CustomerId);
