@@ -1,11 +1,19 @@
 ﻿using System.Configuration;
+using log4net;
+using log4net.Config;
 
 namespace GDStore.Alterations.Console
 {
     public class Program
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+
         public static void Main(string[] args)
         {
+            XmlConfigurator.Configure();
+
+            log.Info("Starting...");
+
             var rabbitMqUri = ConfigurationManager.ConnectionStrings["GDStore.RabbitMq.ConnectionString"].ConnectionString;
             if (string.IsNullOrEmpty(rabbitMqUri))
             {

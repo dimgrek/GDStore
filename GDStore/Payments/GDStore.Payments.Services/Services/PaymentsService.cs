@@ -4,6 +4,7 @@ using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using GDStore.Payments.Messages.Commands;
 using GDStore.Payments.Services.CommandBus;
+using log4net;
 
 namespace GDStore.Payments.Services.Services
 {
@@ -11,6 +12,8 @@ namespace GDStore.Payments.Services.Services
     {
         private readonly IAlterationsCommandBus alterationsCommandBus;
         private readonly IAlterationRepository alterationRepository;
+        private static readonly ILog log = LogManager.GetLogger(typeof(PaymentsService));
+
 
         public PaymentsService(IAlterationsCommandBus alterationsCommandBus, IAlterationRepository alterationRepository)
         {
@@ -20,6 +23,8 @@ namespace GDStore.Payments.Services.Services
 
         public async Task HandlePayment(PaymentDoneCommand command)
         {
+            log.Info($"{nameof(HandlePayment)} called");
+
             var alteration = await alterationRepository.GetByIdAsync(command.AlterationId);
             if (alteration != null)
             {

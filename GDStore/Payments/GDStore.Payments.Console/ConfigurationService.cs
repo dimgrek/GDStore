@@ -3,10 +3,11 @@ using System.Configuration;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Services;
 using GDStore.Payments.Handlers;
-using GDStore.Payments.Services;
 using GDStore.Payments.Services.CommandBus;
 using GDStore.Payments.Services.Services;
+using log4net;
 using MassTransit;
+using MassTransit.Log4NetIntegration;
 using MassTransit.RabbitMqTransport;
 using Unity;
 using Unity.Injection;
@@ -20,6 +21,8 @@ namespace GDStore.Payments.Console
         private readonly string queueName;
         private UnityContainer container;
         private IBusControl bus;
+        private static readonly ILog log = LogManager.GetLogger(typeof(ConfigurationService));
+
 
         public ConfigurationService(string rabbitMqUri, string queueName)
         {
@@ -29,17 +32,23 @@ namespace GDStore.Payments.Console
 
         public bool Start()
         {
+            log.Info("Initializing services...");
+
             container = new UnityContainer();
 
             container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
             container.RegisterType<IPaymentsService, PaymentsService>(new TransientLifetimeManager());
 
             RabbitMQConfiguration();
+            log.Info("Console running...");
+
             return true;
         }
 
         private void RabbitMQConfiguration()
         {
+            log.Info("Registering rabbitmq...");
+
             //Handlers
             container.RegisterType<PaymentsHandler>(new TransientLifetimeManager());
 
@@ -48,7 +57,7 @@ namespace GDStore.Payments.Console
                 var host = cfg.Host(new Uri(rabbitMqUri), h => { });
 
                 cfg.ReceiveEndpoint(host, queueName, endPoint => { endPoint.LoadFrom(container); });
-                //cfg.UseLog4Net();
+                cfg.UseLog4Net();
             });
 
             container.RegisterInstance(bus);
@@ -69,7 +78,7 @@ namespace GDStore.Payments.Console
             }
             catch (RabbitMqConnectionException ex)
             {
-                //log.Error(ex);
+                log.Error(ex);
             }
         }
     }

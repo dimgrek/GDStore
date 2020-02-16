@@ -3,9 +3,12 @@ using System.Configuration;
 using GDStore.Alterations.Handlers;
 using GDStore.Alterations.Services;
 using GDStore.Alterations.Services.CommandBus;
+using GDStore.Alterations.Services.Services;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Services;
+using log4net;
 using MassTransit;
+using MassTransit.Log4NetIntegration;
 using MassTransit.RabbitMqTransport;
 using Unity;
 using Unity.Injection;
@@ -19,6 +22,7 @@ namespace GDStore.Alterations.Console
         private readonly string queueName;
         private UnityContainer container;
         private IBusControl bus;
+        private static readonly ILog log = LogManager.GetLogger(typeof(ConfigurationService));
 
         public ConfigurationService(string rabbitMqUri, string queueName)
         {
@@ -28,6 +32,7 @@ namespace GDStore.Alterations.Console
 
         public bool Start()
         {
+            log.Info("Initializing services...");
             container = new UnityContainer();
 
             container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
@@ -36,11 +41,15 @@ namespace GDStore.Alterations.Console
             container.RegisterType<IAlterationService, AlterationService>(new TransientLifetimeManager());
 
             RabbitMQConfiguration();
+            log.Info("Console running...");
+
             return true;
         }
 
         private void RabbitMQConfiguration()
         {
+            log.Info("Registering rabbitmq...");
+
             //Handlers
             container.RegisterType<AlterationsHandler>(new TransientLifetimeManager());
 
@@ -49,7 +58,7 @@ namespace GDStore.Alterations.Console
                 var host = cfg.Host(new Uri(rabbitMqUri), h => { });
 
                 cfg.ReceiveEndpoint(host, queueName, endPoint => { endPoint.LoadFrom(container); });
-                //cfg.UseLog4Net();
+                cfg.UseLog4Net();
             });
 
             container.RegisterInstance(bus);
@@ -70,7 +79,7 @@ namespace GDStore.Alterations.Console
             }
             catch (RabbitMqConnectionException ex)
             {
-                //log.Error(ex);
+                log.Error(ex);
             }
         }
     }

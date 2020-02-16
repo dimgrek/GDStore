@@ -7,8 +7,9 @@ using GDStore.BLL.Interfaces.Models;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using GDStore.Notifications.Messages.Commands;
+using log4net;
 
-namespace GDStore.Alterations.Services
+namespace GDStore.Alterations.Services.Services
 {
     public class AlterationService : IAlterationService
     {
@@ -16,6 +17,8 @@ namespace GDStore.Alterations.Services
         private readonly ICustomerRepository customerRepository;
         private readonly IAlterationRepository alterationRepository;
         private readonly INotificationCommandBus notificationCommandBus;
+        private static readonly ILog log = LogManager.GetLogger(typeof(AlterationService));
+
 
         public AlterationService(ISuitRepository suitRepository, 
             ICustomerRepository customerRepository, 
@@ -30,6 +33,8 @@ namespace GDStore.Alterations.Services
 
         public async Task AddAlteration(AddAlterationCommand command)
         {
+            log.Info($"{nameof(AddAlteration)} called");
+
             var suit = suitRepository.GetSuitByCustomerId(command.CustomerId);
             var alteration = new Alteration
             {
@@ -66,10 +71,13 @@ namespace GDStore.Alterations.Services
 
             customer.Alterations.Add(alteration);
             await customerRepository.SaveChangesAsync();
+
         }
 
         public async Task MakeAlteration(MakeAlterationCommand command)
         {
+            log.Info($"{nameof(MakeAlterationCommand)} called");
+
             var alteration = await alterationRepository.GetByIdAsync(command.AlterationId);
             if (alteration != null)
             {
