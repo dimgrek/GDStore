@@ -26,7 +26,11 @@ namespace GDStore.Payments.Services.Services
                 alteration.Status = AlterationStatus.Paid;
                 await alterationRepository.SaveChangesAsync();
 
-                await alterationsCommandBus.SendAsync(new MakeAlterationCommand { AlterationId = command.AlterationId });
+                await alterationsCommandBus.SendAsync(new MakeAlterationCommand
+                {
+                    AlterationId = command.AlterationId,
+                    CustomerId = command.CustomerId
+                });
             }
         }
     }

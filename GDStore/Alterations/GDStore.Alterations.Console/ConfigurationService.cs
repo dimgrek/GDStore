@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Configuration;
 using GDStore.Alterations.Handlers;
 using GDStore.Alterations.Services;
+using GDStore.Alterations.Services.CommandBus;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Services;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace GDStore.Alterations.Console
@@ -50,6 +53,16 @@ namespace GDStore.Alterations.Console
             });
 
             container.RegisterInstance(bus);
+
+            var alterationsQueue = ConfigurationManager.AppSettings["GDStore.Notifications.RabbitMQ.QueueURI"];
+            if (string.IsNullOrEmpty(alterationsQueue))
+            {
+                throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ is empty");
+            }
+
+            container.RegisterType<INotificationCommandBus, NotificationCommandBus>(
+                new TransientLifetimeManager(),
+                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(alterationsQueue)));
 
             try
             {

@@ -18,7 +18,8 @@ namespace GDStore.WebApi.Services
         {
             await paymentsCommandBus.SendAsync(new PaymentDoneCommand
             {
-                AlterationId = model.AlterationId
+                AlterationId = model.AlterationId,
+                CustomerId = model.CustomerId
             });
         }
     }

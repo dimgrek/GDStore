@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
+using GDStore.Alterations.Services.CommandBus;
 using GDStore.BLL.Interfaces.Models;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
+using GDStore.Notifications.Messages.Commands;
 
 namespace GDStore.Alterations.Services
 {
@@ -13,12 +15,17 @@ namespace GDStore.Alterations.Services
         private readonly ISuitRepository suitRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly IAlterationRepository alterationRepository;
+        private readonly INotificationCommandBus notificationCommandBus;
 
-        public AlterationService(ISuitRepository suitRepository, ICustomerRepository customerRepository, IAlterationRepository alterationRepository)
+        public AlterationService(ISuitRepository suitRepository, 
+            ICustomerRepository customerRepository, 
+            IAlterationRepository alterationRepository,
+            INotificationCommandBus notificationCommandBus)
         {
             this.suitRepository = suitRepository;
             this.customerRepository = customerRepository;
             this.alterationRepository = alterationRepository;
+            this.notificationCommandBus = notificationCommandBus;
         }
 
         public async Task AddAlteration(AddAlterationCommand command)
@@ -69,6 +76,9 @@ namespace GDStore.Alterations.Services
                 alteration.Status = AlterationStatus.Finished;
                 await alterationRepository.SaveChangesAsync();
             }
+
+            var customer = await customerRepository.GetByIdAsync(command.CustomerId);
+            await notificationCommandBus.SendAsync(new SendEmailCommand {Email = customer.Email});
         }
     }
 }
