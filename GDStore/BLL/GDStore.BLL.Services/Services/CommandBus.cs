@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using GDStore.BLL.Interfaces.Services;
 using MassTransit;
 
-namespace GDStore.WebApi.CommandBus
+namespace GDStore.BLL.Services.Services
 {
     public class CommandBus : ICommandBus
     {

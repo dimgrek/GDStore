@@ -1,14 +1,12 @@
 ﻿using System;
-using GDStore.Alterations.Handlers;
-using GDStore.Alterations.Services;
-using GDStore.DAL.Interface.Services;
-using GDStore.DAL.SQL.Services;
+using GDStore.Payments.Handlers;
+using GDStore.Payments.Services;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Unity;
 using Unity.Lifetime;
 
-namespace GDStore.Alterations.Console
+namespace GDStore.Payments.Console
 {
     public class ConfigurationService
     {
@@ -27,9 +25,7 @@ namespace GDStore.Alterations.Console
         {
             container = new UnityContainer();
 
-            container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
-            container.RegisterType<ICustomerRepository, CustomerRepository>(new TransientLifetimeManager());
-            container.RegisterType<IAlterationService, AlterationService>(new TransientLifetimeManager());
+            container.RegisterType<IPaymentsService, PaymentsService>(new TransientLifetimeManager());
 
             RabbitMQConfiguration();
             return true;
@@ -38,7 +34,7 @@ namespace GDStore.Alterations.Console
         private void RabbitMQConfiguration()
         {
             //Handlers
-            container.RegisterType<AlterationsHandler>(new TransientLifetimeManager());
+            container.RegisterType<PaymentsHandler>(new TransientLifetimeManager());
 
             bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {

@@ -78,7 +78,7 @@ namespace GDStore.WebApi
 
             //Command buses 
             container.RegisterInstance(bus);
-            container.RegisterType<IAlterationsCommandBus, AlterationsesCommandBus>(
+            container.RegisterType<IAlterationsCommandBus, AlterationsCommandBus>(
                 new PerRequestLifetimeManager(),
                 new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(queueURI)));
         }

@@ -165,10 +165,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="CommandBus\AlterationsesCommandBus.cs" />
-    <Compile Include="CommandBus\CommandBus.cs" />
+    <Compile Include="CommandBus\AlterationsCommandBus.cs" />
     <Compile Include="CommandBus\IAlterationsCommandBus.cs" />
-    <Compile Include="CommandBus\ICommandBus.cs" />
     <Compile Include="Controllers\AlterationController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -245,6 +243,10 @@
     <ProjectReference Include="..\BLL\GDStore.BLL.Interfaces\GDStore.BLL.Interfaces.csproj">
       <Project>{fe93a680-181b-4844-810e-dbe0f38f2fed}</Project>
       <Name>GDStore.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\GDStore.BLL.Services\GDStore.BLL.Services.csproj">
+      <Project>{aba0133c-4898-459c-8c11-cd703cd98721}</Project>
+      <Name>GDStore.BLL.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
       <Project>{e2f25388-feb7-4fdf-8091-c4b10c008fb6}</Project>
