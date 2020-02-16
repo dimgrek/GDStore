@@ -12,7 +12,7 @@ namespace GDStore.Notifications.Services
         {
             log.Info($"{nameof(SendEmailAsync)} called");
 
-            //install email service e.g. Send grid and use it to send email to particular customer
+            //install email service e.g. SendGrid and use it to send email to particular customer
 
             log.Info($"Email sent out to {command.Email}");
         }

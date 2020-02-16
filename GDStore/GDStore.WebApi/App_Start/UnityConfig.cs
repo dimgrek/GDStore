@@ -10,6 +10,7 @@ using Unity.Injection;
 using System.Configuration;
 using GDStore.WebApi.CommandBus;
 using MassTransit;
+using MassTransit.Log4NetIntegration;
 
 namespace GDStore.WebApi
 {
@@ -59,12 +60,6 @@ namespace GDStore.WebApi
                 throw new ConfigurationErrorsException("RabbitMq connectionString is empty");
             }
 
-            //var queueName = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueName"];
-            //if (string.IsNullOrEmpty(queueName))
-            //{
-            //    throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ.QueueName is empty");
-            //}
-
             var alterationsQueue = ConfigurationManager.AppSettings["GDStore.Alterations.RabbitMQ.QueueURI"];
             if (string.IsNullOrEmpty(alterationsQueue))
             {
@@ -80,7 +75,7 @@ namespace GDStore.WebApi
             var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 cfg.Host(new Uri(rabbitMqUri), h => { });
-                //cfg.UseLog4Net();
+                cfg.UseLog4Net();
             });
 
             //Command buses 
