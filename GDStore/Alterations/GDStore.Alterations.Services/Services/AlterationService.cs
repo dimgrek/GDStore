@@ -71,7 +71,6 @@ namespace GDStore.Alterations.Services.Services
 
             customer.Alterations.Add(alteration);
             await customerRepository.SaveChangesAsync();
-
         }
 
         public async Task MakeAlteration(MakeAlterationCommand command)

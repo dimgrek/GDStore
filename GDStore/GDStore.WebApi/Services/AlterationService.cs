@@ -7,6 +7,7 @@ using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using GDStore.WebApi.CommandBus;
 using GDStore.WebApi.Models;
+using log4net;
 
 namespace GDStore.WebApi.Services
 {
@@ -14,6 +15,8 @@ namespace GDStore.WebApi.Services
     {
         private readonly IAlterationRepository alterationRepository;
         private readonly IAlterationsCommandBus alterationsCommandBus;
+        private readonly ILog log = LogManager.GetLogger(typeof(AlterationService));
+
 
         public AlterationService(IAlterationRepository alterationRepository,
             IAlterationsCommandBus alterationsCommandBus)
@@ -24,6 +27,8 @@ namespace GDStore.WebApi.Services
 
         public async Task AddAlteration(AlterationModel model)
         {
+            log.Info($"{nameof(AddAlteration)} called");
+
             await alterationsCommandBus.SendAsync(new AddAlterationCommand
             {
                 CustomerId = model.CustomerId,
@@ -36,11 +41,15 @@ namespace GDStore.WebApi.Services
 
         public List<Alteration> GetAllByCustomerId(Guid customerId)
         {
+            log.Info($"{nameof(GetAllByCustomerId)} called");
+
             return alterationRepository.GetAll(x => x.CustomerId == customerId).ToList();
         }
 
         public List<Alteration> GetAll()
         {
+            log.Info($"{nameof(GetAll)} called");
+
             return alterationRepository.GetAll().ToList();
         }
     }

@@ -4,15 +4,11 @@ using System.Web.Mvc;
 using GDStore.WebApi.Models;
 using GDStore.WebApi.Services;
 
-//using GDStore.Models;
-//using GDStore.Services;
-
 namespace GDStore.WebApi.Controllers
 {
     public class AlterationController : Controller
     {
         private readonly IAlterationService alterationService;
-
 
         public AlterationController(IAlterationService alterationService)
         {
@@ -38,17 +34,11 @@ namespace GDStore.WebApi.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CustomerId,Name,Item,Side,Length")]AlterationModel model)
+        public async Task<ActionResult> Create([Bind(Include = "CustomerId,Name,Item,Side,Length")] AlterationModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-                await alterationService.AddAlteration(model);
-
-                return RedirectToAction(nameof(AlterationsByCustomerId), new { model.CustomerId });
-            //}
-
-            //return BadRequest();
+            await alterationService.AddAlteration(model);
+            
+            return RedirectToAction(nameof(AlterationsByCustomerId), new {model.CustomerId});
         }
     }
 }
