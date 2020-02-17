@@ -50,7 +50,9 @@ namespace GDStore.WebApi.Services
         {
             log.Info($"{nameof(GetAll)} called");
 
-            return alterationRepository.GetAll().ToList();
+            var res = alterationRepository.GetAll().ToList();
+
+            return res;
         }
     }
 }

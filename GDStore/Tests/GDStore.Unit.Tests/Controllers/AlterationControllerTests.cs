@@ -11,8 +11,8 @@ namespace GDStore.Unit.Tests.Controllers
 {
     public class AlterationControllerTests
     {
-        private Mock<IAlterationService> alterationService;
-        private AlterationController alterationController;
+        private readonly Mock<IAlterationService> alterationService;
+        private readonly AlterationController alterationController;
 
         public AlterationControllerTests()
         {

@@ -14,7 +14,7 @@ namespace GDStore.Unit.Tests.Services
 {
     public class AlterationServiceTests
     {
-        private AlterationService sut;
+        private readonly AlterationService sut;
         private readonly ISuitRepository suitRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly IAlterationRepository alterationRepository;

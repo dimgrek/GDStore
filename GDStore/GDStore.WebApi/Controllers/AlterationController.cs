@@ -23,7 +23,6 @@ namespace GDStore.WebApi.Controllers
         public ActionResult AlterationsByCustomerId(Guid customerId)
         {
             ViewBag.CustomerId = customerId;
-            //todo: make GetAll method async in Repo
             return View(alterationService.GetAllByCustomerId(customerId));
         }
 
@@ -37,7 +36,6 @@ namespace GDStore.WebApi.Controllers
         public async Task<ActionResult> Create([Bind(Include = "CustomerId,Name,Item,Side,Length")] AlterationModel model)
         {
             await alterationService.AddAlteration(model);
-            
             return RedirectToAction(nameof(AlterationsByCustomerId), new {model.CustomerId});
         }
     }

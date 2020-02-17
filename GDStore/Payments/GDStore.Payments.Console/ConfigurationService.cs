@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using GDStore.DAL.Interface.Services;
+using GDStore.DAL.SQL.Context;
 using GDStore.DAL.SQL.Services;
 using GDStore.Payments.Handlers;
 using GDStore.Payments.Services.CommandBus;
@@ -35,7 +36,7 @@ namespace GDStore.Payments.Console
             log.Info("Initializing services...");
 
             container = new UnityContainer();
-
+            container.RegisterType<GDStoreContext>();
             container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
             container.RegisterType<IPaymentsService, PaymentsService>(new TransientLifetimeManager());
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
 
-namespace GDStore.Alterations.Services
+namespace GDStore.Alterations.Services.Services
 {
     public interface IAlterationService
     {

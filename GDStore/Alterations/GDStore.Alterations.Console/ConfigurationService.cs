@@ -5,6 +5,7 @@ using GDStore.Alterations.Services;
 using GDStore.Alterations.Services.CommandBus;
 using GDStore.Alterations.Services.Services;
 using GDStore.DAL.Interface.Services;
+using GDStore.DAL.SQL.Context;
 using GDStore.DAL.SQL.Services;
 using log4net;
 using MassTransit;
@@ -34,7 +35,7 @@ namespace GDStore.Alterations.Console
         {
             log.Info("Initializing services...");
             container = new UnityContainer();
-
+            container.RegisterType<GDStoreContext>();
             container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
             container.RegisterType<ICustomerRepository, CustomerRepository>(new TransientLifetimeManager());
             container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
