@@ -1,0 +1,49 @@
+﻿@using GDStore.BLL.Interfaces.Models
+@using GDStore.DAL.Interface.Domain
+@model GDStore.MVC.Models.AlterationModel
+
+@{
+    ViewBag.Title = "Add";
+}
+<h2>Add alteration</h2>
+@using (Html.BeginForm("Create", "Alteration"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+        @Html.Hidden("CustomerId", (Guid)ViewBag.CustomerId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Item", "Item", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Item", EnumHelper.GetSelectList(typeof(Item)), "-select-", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Side", "Side", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Side", EnumHelper.GetSelectList(typeof(Side)), "-select-", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Length, new { htmlAttributes = new { min = -5, max = 5 } })
+                @Html.ValidationMessageFor(model => model.Length)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

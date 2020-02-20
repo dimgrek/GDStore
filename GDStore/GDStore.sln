@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDStore.Unit.Tests", "Tests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{F1825567-EA05-4529-AA28-A10D194BAA23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDStore.WebApi", "MVC\GDStore.WebApi\GDStore.WebApi.csproj", "{BC412B6F-2EB4-4825-AAD9-EEA2C8CD9C8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDStore.MVC", "MVC\GDStore.MVC\GDStore.MVC.csproj", "{BC412B6F-2EB4-4825-AAD9-EEA2C8CD9C8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
