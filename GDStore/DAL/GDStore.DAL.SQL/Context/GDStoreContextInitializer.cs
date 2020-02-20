@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using GDStore.BLL.Interfaces.Models;
@@ -15,12 +16,12 @@ namespace GDStore.DAL.SQL.Context
                 return;
             }
 
-            var firstLeftSleeve = new Sleeve{Length = 5, Side = Side.Left};
-            var firstRightSleeve = new Sleeve { Length = 5, Side = Side.Right };
-            var secondLeftSleeve = new Sleeve { Length = 6, Side = Side.Left };
-            var secondRightSleeve = new Sleeve { Length = 5, Side = Side.Right };
-            var thirdLeftSleeve = new Sleeve { Length = 7, Side = Side.Left };
-            var thirdRightSleeve = new Sleeve { Length = 7, Side = Side.Right };
+            var firstLeftSleeve = new Sleeve{ Id = Guid.NewGuid(),Length = 5, Side = Side.Left};
+            var firstRightSleeve = new Sleeve { Id = Guid.NewGuid(), Length = 5, Side = Side.Right };
+            var secondLeftSleeve = new Sleeve { Id = Guid.NewGuid(), Length = 6, Side = Side.Left };
+            var secondRightSleeve = new Sleeve { Id = Guid.NewGuid(), Length = 5, Side = Side.Right };
+            var thirdLeftSleeve = new Sleeve { Id = Guid.NewGuid(), Length = 7, Side = Side.Left };
+            var thirdRightSleeve = new Sleeve { Id = Guid.NewGuid(), Length = 7, Side = Side.Right };
 
             context.Sleeves.Add(firstLeftSleeve);
             context.Sleeves.Add(firstRightSleeve);
@@ -29,18 +30,19 @@ namespace GDStore.DAL.SQL.Context
             context.Sleeves.Add(thirdLeftSleeve);
             context.Sleeves.Add(thirdRightSleeve);
 
-            var firstLeftTrouserLeg = new TrouserLeg { Length = 5, Side = Side.Left };
-            var firstRightTrouserLeg = new TrouserLeg { Length = 5, Side = Side.Right };
-            var secondLeftTrouserLeg = new TrouserLeg { Length = 6, Side = Side.Left };
-            var secondRightTrouserLeg = new TrouserLeg { Length = 5, Side = Side.Right };
-            var thirdLeftTrouserLeg = new TrouserLeg { Length = 7, Side = Side.Left };
-            var thirdRightTrouserLeg = new TrouserLeg { Length = 7, Side = Side.Right };
+            var firstLeftTrouserLeg = new TrouserLeg { Id = Guid.NewGuid(), Length = 5, Side = Side.Left };
+            var firstRightTrouserLeg = new TrouserLeg { Id = Guid.NewGuid(), Length = 5, Side = Side.Right };
+            var secondLeftTrouserLeg = new TrouserLeg { Id = Guid.NewGuid(), Length = 6, Side = Side.Left };
+            var secondRightTrouserLeg = new TrouserLeg { Id = Guid.NewGuid(), Length = 5, Side = Side.Right };
+            var thirdLeftTrouserLeg = new TrouserLeg { Id = Guid.NewGuid(), Length = 7, Side = Side.Left };
+            var thirdRightTrouserLeg = new TrouserLeg { Id = Guid.NewGuid(), Length = 7, Side = Side.Right };
 
             context.TrouserLegs.Add(firstLeftTrouserLeg);
             context.TrouserLegs.Add(firstRightTrouserLeg);
 
             var firstSuit = new Suit
             {
+                Id = Guid.NewGuid(),
                 Name = "first suit",
                 Sleeves = new List<Sleeve> { firstLeftSleeve, firstRightSleeve },
                 TrouserLegs = new List<TrouserLeg> { firstLeftTrouserLeg, firstRightTrouserLeg }
@@ -48,6 +50,7 @@ namespace GDStore.DAL.SQL.Context
 
             var secondSuit = new Suit
             {
+                Id = Guid.NewGuid(),
                 Name = "second suit",
                 Sleeves = new List<Sleeve> { secondLeftSleeve, secondRightSleeve },
                 TrouserLegs = new List<TrouserLeg> { secondLeftTrouserLeg, secondRightTrouserLeg }
@@ -55,6 +58,7 @@ namespace GDStore.DAL.SQL.Context
 
             var thirdSuit = new Suit
             {
+                Id = Guid.NewGuid(),
                 Name = "third suit",
                 Sleeves = new List<Sleeve> { thirdLeftSleeve, thirdRightSleeve },
                 TrouserLegs = new List<TrouserLeg> { thirdLeftTrouserLeg, thirdRightTrouserLeg }
@@ -64,9 +68,9 @@ namespace GDStore.DAL.SQL.Context
             context.Suits.Add(secondSuit);
             context.Suits.Add(thirdSuit);
 
-            var firstCustomer = new Customer { Email = "first@hello.com", FirstName = "Elon", LastName = "Musk", Suits = new List<Suit> { firstSuit } };
-            var secondCustomer = new Customer { Email = "second@hello.com", FirstName = "Brad", LastName = "Pitt", Suits = new List<Suit> { secondSuit } };
-            var thirdCustomer = new Customer { Email = "third@hello.com", FirstName = "Tim", LastName = "Cook", Suits = new List<Suit> { thirdSuit } };
+            var firstCustomer = new Customer { Id = Guid.NewGuid(), Email = "first@hello.com", FirstName = "Elon", LastName = "Musk", Suits = new List<Suit> { firstSuit } };
+            var secondCustomer = new Customer { Id = Guid.NewGuid(), Email = "second@hello.com", FirstName = "Brad", LastName = "Pitt", Suits = new List<Suit> { secondSuit } };
+            var thirdCustomer = new Customer { Id = Guid.NewGuid(), Email = "third@hello.com", FirstName = "Tim", LastName = "Cook", Suits = new List<Suit> { thirdSuit } };
 
             context.Customer.Add(firstCustomer);
             context.Customer.Add(secondCustomer);

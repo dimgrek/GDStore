@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
@@ -38,6 +39,7 @@ namespace GDStore.Alterations.Services.Services
             var suit = suitRepository.GetSuitByCustomerId(command.CustomerId);
             var alteration = new Alteration
             {
+                Id = Guid.NewGuid(),
                 Name = command.Name,
                 Status = AlterationStatus.Created,
                 Length = command.Length,
@@ -82,10 +84,9 @@ namespace GDStore.Alterations.Services.Services
             {
                 alteration.Status = AlterationStatus.Finished;
                 await alterationRepository.SaveChangesAsync();
+                var customer = await customerRepository.GetByIdAsync(command.CustomerId);
+                await notificationCommandBus.SendAsync(new SendEmailCommand { Email = customer.Email });
             }
-
-            var customer = await customerRepository.GetByIdAsync(command.CustomerId);
-            await notificationCommandBus.SendAsync(new SendEmailCommand {Email = customer.Email});
         }
     }
 }
