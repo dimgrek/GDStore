@@ -1,4 +1,5 @@
 ﻿using System;
+using GDStore.BLL.Services.Observers;
 using GDStore.Notifications.Handlers;
 using GDStore.Notifications.Services;
 using log4net;
@@ -54,6 +55,9 @@ namespace GDStore.Notifications.Console
             });
 
             container.RegisterInstance(bus);
+
+            bus.ConnectConsumeObserver(new MessagesConsumerObserver());
+
 
             try
             {

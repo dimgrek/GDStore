@@ -4,6 +4,7 @@ using GDStore.Alterations.Handlers;
 using GDStore.Alterations.Services;
 using GDStore.Alterations.Services.CommandBus;
 using GDStore.Alterations.Services.Services;
+using GDStore.BLL.Services.Observers;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Context;
 using GDStore.DAL.SQL.Services;
@@ -73,6 +74,8 @@ namespace GDStore.Alterations.Console
             container.RegisterType<INotificationCommandBus, NotificationCommandBus>(
                 new TransientLifetimeManager(),
                 new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(alterationsQueue)));
+
+            bus.ConnectConsumeObserver(new MessagesConsumerObserver());
 
             try
             {

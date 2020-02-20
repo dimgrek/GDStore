@@ -122,6 +122,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Services\GDStore.BLL.Services.csproj">
+      <Project>{aba0133c-4898-459c-8c11-cd703cd98721}</Project>
+      <Name>GDStore.BLL.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.Notifications.Handlers\GDStore.Notifications.Handlers.csproj">
       <Project>{4a918d48-0e45-4464-beee-90fbbd5d0faa}</Project>
       <Name>GDStore.Notifications.Handlers</Name>

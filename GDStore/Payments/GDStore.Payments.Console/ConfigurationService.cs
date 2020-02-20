@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using GDStore.BLL.Services.Observers;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Context;
 using GDStore.DAL.SQL.Services;
@@ -72,6 +73,8 @@ namespace GDStore.Payments.Console
             container.RegisterType<IAlterationsCommandBus, AlterationsCommandBus>(
                 new TransientLifetimeManager(),
                 new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(alterationsQueue)));
+
+            bus.ConnectConsumeObserver(new MessagesConsumerObserver());
 
             try
             {
