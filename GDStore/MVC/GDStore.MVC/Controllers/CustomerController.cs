@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using GDStore.DAL.Interface.Services;
 
@@ -13,9 +14,9 @@ namespace GDStore.MVC.Controllers
             this.customerRepository = customerRepository;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(customerRepository.GetAll().ToList());
+            return View((await customerRepository.GetAllAsync()).ToList());
         }
     }
 }

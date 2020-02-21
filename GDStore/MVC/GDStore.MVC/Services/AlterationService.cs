@@ -39,20 +39,18 @@ namespace GDStore.MVC.Services
             });
         }
 
-        public List<Alteration> GetAllByCustomerId(Guid customerId)
+        public async Task<List<Alteration>> GetAllByCustomerId(Guid customerId)
         {
             log.Info($"{nameof(GetAllByCustomerId)} called");
 
-            return alterationRepository.GetAll(x => x.CustomerId == customerId).ToList();
+            return (await alterationRepository.GetAllAsync(x => x.CustomerId == customerId)).ToList();
         }
 
-        public List<Alteration> GetAll()
+        public async Task<List<Alteration>> GetAll()
         {
             log.Info($"{nameof(GetAll)} called");
 
-            var res = alterationRepository.GetAll().ToList();
-
-            return res;
+            return (await alterationRepository.GetAllAsync()).ToList();
         }
     }
 }

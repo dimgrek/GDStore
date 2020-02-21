@@ -14,7 +14,6 @@ namespace GDStore.MVC.Controllers
             this.paymentService = paymentService;
         }
 
-        //[HttpPost]
         public async Task<ActionResult> Make([Bind(Include = "AlterationId,CustomerId")] PaymentModel model)
         {
             await paymentService.MakePayment(model);

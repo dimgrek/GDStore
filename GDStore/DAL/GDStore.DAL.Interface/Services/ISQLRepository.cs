@@ -22,11 +22,18 @@ namespace GDStore.DAL.Interface.Services
         Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> criteria);
 
         /// <summary>
-        ///     Returns All the records of T.
+        ///     Returns all the records of T.
         /// </summary>
         /// <param name="take">Optional parameter. How many records to take from resulting collection.</param>
         /// <returns>IQueryable of T.</returns>
         IQueryable<T> GetAll(int? take = null);
+
+        /// <summary>
+        ///     Returns Task of all the records of T.
+        /// </summary>
+        /// <param name="take">Optional parameter. How many records to take from resulting collection.</param>
+        /// <returns>Task of IQueryable of T.</returns>
+        Task<IQueryable<T>> GetAllAsync(int? take = null);
 
         /// <summary>
         ///     Returns the list of T where it matches the criteria.
@@ -35,6 +42,14 @@ namespace GDStore.DAL.Interface.Services
         /// <param name="take">Optional parameter. How many records to take from resulting collection.</param>
         /// <returns>IQueryable of T.</returns>
         IQueryable<T> GetAll(Expression<Func<T, bool>> criteria, int? take = null);
+
+        /// <summary>
+        ///     Returns Task with the list of T where it matches the criteria.
+        /// </summary>
+        /// <param name="criteria">The expression.</param>
+        /// <param name="take">Optional parameter. How many records to take from resulting collection.</param>
+        /// <returns>Task of IQueryable of T.</returns>
+        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> criteria, int? take = null);
 
         /// <summary>
         ///     Adds the new entity in the repository.

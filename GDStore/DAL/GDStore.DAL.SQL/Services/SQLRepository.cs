@@ -46,12 +46,28 @@ namespace GDStore.DAL.SQL.Services
             return dbSet.AsQueryable();
         }
 
+        public Task<IQueryable<T>> GetAllAsync(int? take = null)
+        {
+            if (take.HasValue)
+                return Task.FromResult(dbSet.Take(take.Value));
+
+            return Task.FromResult(dbSet.AsQueryable());
+        }
+
         public IQueryable<T> GetAll(Expression<Func<T, bool>> criteria, int? take = null)
         {
             if (take.HasValue)
                 return dbSet.Where(criteria).Take(take.Value);
 
             return dbSet.Where(criteria);
+        }
+
+        public Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> criteria, int? take = null)
+        {
+            if (take.HasValue)
+                return Task.FromResult(dbSet.Where(criteria).Take(take.Value));
+
+            return Task.FromResult(dbSet.Where(criteria));
         }
 
         public void Add(T entity)

@@ -15,15 +15,15 @@ namespace GDStore.MVC.Controllers
             this.alterationService = alterationService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(alterationService.GetAll());
+            return View(await alterationService.GetAll());
         }
 
-        public ActionResult AlterationsByCustomerId(Guid customerId)
+        public async Task<ActionResult> AlterationsByCustomerId(Guid customerId)
         {
             ViewBag.CustomerId = customerId;
-            return View(alterationService.GetAllByCustomerId(customerId));
+            return View(await alterationService.GetAllByCustomerId(customerId));
         }
 
         public ActionResult Add(Guid customerId)
