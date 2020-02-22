@@ -141,9 +141,9 @@
       <Project>{fa3a6c39-c758-496b-afdf-8b4715c32564}</Project>
       <Name>GDStore.DAL.SQL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\GDStore.WebApi\GDStore.WebApi.csproj">
+    <ProjectReference Include="..\..\MVC\GDStore.MVC\GDStore.MVC.csproj">
       <Project>{bc412b6f-2eb4-4825-aad9-eea2c8cd9c8b}</Project>
-      <Name>GDStore.WebApi</Name>
+      <Name>GDStore.MVC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

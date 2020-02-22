@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using GDStore.WebApi.Controllers;
-using GDStore.WebApi.Models;
-using GDStore.WebApi.Services;
+using GDStore.MVC.Controllers;
+using GDStore.MVC.Models;
+using GDStore.MVC.Services;
 using Moq;
 using TestStack.FluentMVCTesting;
 using Xunit;
