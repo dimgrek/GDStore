@@ -9,11 +9,12 @@ namespace GDStore.MVC.Services
     public class PaymentService : IPaymentService
     {
         private readonly IPaymentsCommandBus paymentsCommandBus;
-        private readonly ILog log = LogManager.GetLogger(typeof(PaymentService));
+        private readonly ILog log;
 
-        public PaymentService(IPaymentsCommandBus paymentsCommandBus)
+        public PaymentService(IPaymentsCommandBus paymentsCommandBus, ILog log)
         {
             this.paymentsCommandBus = paymentsCommandBus;
+            this.log = log;
         }
 
         public async Task MakePayment(PaymentModel model)

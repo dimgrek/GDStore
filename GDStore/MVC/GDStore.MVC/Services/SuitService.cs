@@ -10,12 +10,12 @@ namespace GDStore.MVC.Services
     public class SuitService : ISuitService
     {
         private readonly ISuitRepository suitRepository;
-        private readonly ILog log = LogManager.GetLogger(typeof(SuitService));
+        private readonly ILog log;
 
-
-        public SuitService(ISuitRepository suitRepository)
+        public SuitService(ISuitRepository suitRepository, ILog log)
         {
             this.suitRepository = suitRepository;
+            this.log = log;
         }
 
         public async Task<List<Suit>> GetAllByCustomerId(Guid customerId)

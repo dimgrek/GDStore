@@ -15,13 +15,15 @@ namespace GDStore.MVC.Services
     {
         private readonly IAlterationRepository alterationRepository;
         private readonly IAlterationsCommandBus alterationsCommandBus;
-        private readonly ILog log = LogManager.GetLogger(typeof(AlterationService));
+        private readonly ILog log;
 
         public AlterationService(IAlterationRepository alterationRepository,
-            IAlterationsCommandBus alterationsCommandBus)
+            IAlterationsCommandBus alterationsCommandBus,
+            ILog log)
         {
             this.alterationRepository = alterationRepository;
             this.alterationsCommandBus = alterationsCommandBus;
+            this.log = log;
         }
 
         public async Task AddAlteration(AlterationModel model)

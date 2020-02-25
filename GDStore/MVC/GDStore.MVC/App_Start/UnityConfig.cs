@@ -10,6 +10,7 @@ using MassTransit.Log4NetIntegration;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
+using Unity.log4net;
 
 namespace GDStore.MVC
 {
@@ -45,6 +46,7 @@ namespace GDStore.MVC
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
+            container.AddNewExtension<Log4NetExtension>();
             container.RegisterType<GDStoreContext>();
             container.RegisterType<ICustomerRepository, CustomerRepository>(new PerRequestLifetimeManager());
             container.RegisterType<ISuitRepository, SuitRepository>(new PerRequestLifetimeManager());
