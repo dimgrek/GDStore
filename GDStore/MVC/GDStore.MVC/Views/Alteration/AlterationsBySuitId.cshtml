@@ -1,9 +1,9 @@
 ﻿@model System.Collections.Generic.List<GDStore.DAL.Interface.Domain.Alteration>
 
 @{
-    ViewBag.Title = "Alterations for a selected customer";
+    ViewBag.Title = "Alterations for a selected suit";
 }
-<h2>Alterations for a selected customer</h2>
+<h2>Alterations for a selected suit</h2>
 
 @{
     if (Model.Any())
@@ -11,7 +11,7 @@
         <table class="table">
             <tr>
                 <th>Name</th>
-                <th>Customer Id</th>
+                <th>Suit Id</th>
                 <th>Status</th>
                 <th>Item Id to alter</th>
                 <th>Payment</th>
@@ -23,7 +23,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
+                @Html.DisplayFor(modelItem => item.SuitId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
@@ -39,16 +39,16 @@
                 }
             </td>
             <td>
-                <a>@Html.ActionLink("Make payment", "Make", "Payment", new { Model.First()?.CustomerId, AlterationId = item.Id }, new { @class = "btn btn-default" })</a>
+                <a>@Html.ActionLink("Make payment", "Make", "Payment", new {item.SuitId, AlterationId = item.Id }, new { @class = "btn btn-default" })</a>
             </td>
         </tr>
             }
         </table>
-        <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { CustomerId = Model.First()?.CustomerId }, new { @class = "btn btn-default" })</a>
+        <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { ViewBag.SuitId }, new { @class = "btn btn-default" })</a>
     }
     else
     {
-        <h2>No alterations found for this customer</h2>
-        <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { CustomerId = ViewBag.CustomerId }, new { @class = "btn btn-default" })</a>
+        <h2>No alterations found for this suit</h2>
+        <a>@Html.ActionLink("Add alteration", "Add", "Alteration", new { ViewBag.SuitId }, new { @class = "btn btn-default" })</a>
     }
 }

@@ -17,7 +17,6 @@ namespace GDStore.MVC.Services
         private readonly IAlterationsCommandBus alterationsCommandBus;
         private readonly ILog log = LogManager.GetLogger(typeof(AlterationService));
 
-
         public AlterationService(IAlterationRepository alterationRepository,
             IAlterationsCommandBus alterationsCommandBus)
         {
@@ -31,7 +30,7 @@ namespace GDStore.MVC.Services
 
             await alterationsCommandBus.SendAsync(new AddAlterationCommand
             {
-                CustomerId = model.CustomerId,
+                SuitId = model.SuitId,
                 Item = model.Item,
                 Length = model.Length,
                 Name = model.Name,
@@ -39,11 +38,11 @@ namespace GDStore.MVC.Services
             });
         }
 
-        public async Task<List<Alteration>> GetAllByCustomerId(Guid customerId)
+        public async Task<List<Alteration>> GetAllBySuitId(Guid suitId)
         {
-            log.Info($"{nameof(GetAllByCustomerId)} called");
+            log.Info($"{nameof(GetAllBySuitId)} called");
 
-            return (await alterationRepository.GetAllAsync(x => x.CustomerId == customerId)).ToList();
+            return (await alterationRepository.GetAllAsync(x => x.SuitId == suitId)).ToList();
         }
 
         public async Task<List<Alteration>> GetAll()

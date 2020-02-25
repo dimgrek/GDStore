@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GDStore.DAL.Interface.Domain;
 
-namespace GDStore.DAL.Interface.Services
+namespace GDStore.MVC.Services
 {
-    public interface ISuitRepository : ISQLRepository<Suit>
+    public interface ISuitService
     {
         Task<List<Suit>> GetAllByCustomerId(Guid customerId);
     }

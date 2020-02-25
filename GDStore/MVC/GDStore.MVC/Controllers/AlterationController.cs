@@ -20,23 +20,23 @@ namespace GDStore.MVC.Controllers
             return View(await alterationService.GetAll());
         }
 
-        public async Task<ActionResult> AlterationsByCustomerId(Guid customerId)
+        public async Task<ActionResult> AlterationsBySuitId(Guid suitId)
         {
-            ViewBag.CustomerId = customerId;
-            return View(await alterationService.GetAllByCustomerId(customerId));
+            ViewBag.SuitId = suitId;
+            return View(await alterationService.GetAllBySuitId(suitId));
         }
 
-        public ActionResult Add(Guid customerId)
+        public ActionResult Add(Guid suitId)
         {
-            ViewBag.CustomerId = customerId;
+            ViewBag.SuitId = suitId;
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "CustomerId,Name,Item,Side,Length")] AlterationModel model)
+        public async Task<ActionResult> Create([Bind(Include = "SuitId,Name,Item,Side,Length")] AlterationModel model)
         {
             await alterationService.AddAlteration(model);
-            return RedirectToAction(nameof(AlterationsByCustomerId), new {model.CustomerId});
+            return RedirectToAction(nameof(AlterationsBySuitId), new { model.SuitId});
         }
     }
 }

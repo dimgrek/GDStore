@@ -24,14 +24,14 @@ namespace GDStore.Unit.Tests.Controllers
         public void CreateAlteration_Redirect_AlterationsByCustomerId()
         {
             //arrange
-            var model = new AlterationModel{CustomerId = Guid.NewGuid()};
+            var model = new AlterationModel{SuitId = Guid.NewGuid()};
             alterationService.Setup(x => x.AddAlteration(It.IsAny<AlterationModel>())).Returns(Task.CompletedTask);
             
             //act
 
             //assert
             alterationController.WithCallTo(x => x.Create(model))
-                .ShouldRedirectTo(x => x.AlterationsByCustomerId(model.CustomerId));
+                .ShouldRedirectTo(x => x.AlterationsBySuitId(model.SuitId));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace GDStore.MVC.Models
 {
     public class AlterationModel
     {
-        public Guid CustomerId { get; set; }
+        public Guid SuitId { get; set; }
         public string Name { get; set; }
         public Item Item { get; set; }
         public Side Side { get; set; }

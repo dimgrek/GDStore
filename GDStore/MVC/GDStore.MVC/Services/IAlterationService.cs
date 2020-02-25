@@ -9,7 +9,7 @@ namespace GDStore.MVC.Services
     public interface IAlterationService
     {
         Task AddAlteration(AlterationModel model);
-        Task<List<Alteration>> GetAllByCustomerId(Guid customerId);
+        Task<List<Alteration>> GetAllBySuitId(Guid suitId);
         Task<List<Alteration>> GetAll();
     }
 }

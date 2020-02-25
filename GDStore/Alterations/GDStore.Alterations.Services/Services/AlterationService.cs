@@ -20,7 +20,6 @@ namespace GDStore.Alterations.Services.Services
         private readonly INotificationCommandBus notificationCommandBus;
         private static readonly ILog log = LogManager.GetLogger(typeof(AlterationService));
 
-
         public AlterationService(ISuitRepository suitRepository, 
             ICustomerRepository customerRepository, 
             IAlterationRepository alterationRepository,
@@ -36,14 +35,14 @@ namespace GDStore.Alterations.Services.Services
         {
             log.Info($"{nameof(AddAlteration)} called");
 
-            var suit = suitRepository.GetSuitByCustomerId(command.CustomerId);
+            var suit = await suitRepository.GetByIdAsync(command.SuitId);
             var alteration = new Alteration
             {
                 Id = Guid.NewGuid(),
                 Name = command.Name,
                 Status = AlterationStatus.Created,
                 Length = command.Length,
-                CustomerId = command.CustomerId
+                SuitId = command.SuitId
             };
 
             if (command.Item == Item.Sleeve)
@@ -64,7 +63,7 @@ namespace GDStore.Alterations.Services.Services
                 }
             }
 
-            var customer = await customerRepository.GetByIdAsync(command.CustomerId);
+            var customer = await customerRepository.GetByIdAsync(suit.CustomerId);
 
             if (customer.Alterations == null)
             {

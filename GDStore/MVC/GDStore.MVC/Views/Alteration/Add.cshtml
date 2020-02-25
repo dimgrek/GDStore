@@ -13,7 +13,7 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.AntiForgeryToken()
-        @Html.Hidden("CustomerId", (Guid)ViewBag.CustomerId)
+        @Html.Hidden("SuitId", (Guid)ViewBag.SuitId)
         <div class="form-group">
             @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -6,6 +6,5 @@ namespace GDStore.Alterations.Messages.Commands
     {
         public Guid AlterationId { get; set; }
         public Guid CustomerId { get; set; }
-
     }
 }

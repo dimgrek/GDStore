@@ -48,6 +48,7 @@ namespace GDStore.MVC
             container.RegisterType<GDStoreContext>();
             container.RegisterType<ICustomerRepository, CustomerRepository>(new PerRequestLifetimeManager());
             container.RegisterType<ISuitRepository, SuitRepository>(new PerRequestLifetimeManager());
+            container.RegisterType<ISuitService, SuitService>(new PerRequestLifetimeManager());
             container.RegisterType<IAlterationRepository, AlterationRepository>(new PerRequestLifetimeManager());
             container.RegisterType<IAlterationService, AlterationService>(new PerRequestLifetimeManager());
             container.RegisterType<IPaymentService, PaymentService>(new PerRequestLifetimeManager());

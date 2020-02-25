@@ -17,7 +17,7 @@ namespace GDStore.MVC.Controllers
         public async Task<ActionResult> Make([Bind(Include = "AlterationId,CustomerId")] PaymentModel model)
         {
             await paymentService.MakePayment(model);
-            return RedirectToAction("AlterationsByCustomerId", "Alteration", new { model.CustomerId });
+            return RedirectToAction("AlterationsBySuitId", "Alteration", new { model.CustomerId });
         }
     }
 }

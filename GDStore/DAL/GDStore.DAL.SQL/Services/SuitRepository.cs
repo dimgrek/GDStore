@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Context;
@@ -14,13 +16,9 @@ namespace GDStore.DAL.SQL.Services
             
         }
 
-        public Suit GetSuitByCustomerId(Guid customerId)
+        public async Task<List<Suit>> GetAllByCustomerId(Guid customerId)
         {
-            return dbSet
-                .Where(x => x.CustomerId == customerId)
-                .Include(x => x.Sleeves)
-                .Include(x => x.TrouserLegs).ToList()
-                .First();
+            return (await GetAllAsync(x => x.CustomerId == customerId)).ToList();
         }
     }
 }

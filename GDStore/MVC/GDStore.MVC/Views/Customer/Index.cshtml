@@ -10,7 +10,7 @@
         <th>First name</th>
         <th>Last name</th>
         <th>Email</th>
-        <th>Choose customer</th>
+        <th>Select customer</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -25,7 +25,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a>@Html.ActionLink("Select", "AlterationsByCustomerId", "Alteration", new { customerId = item.Id }, new { @class = "btn btn-default" })</a>
+                <a>@Html.ActionLink("Select", "Index", "Suit", new { customerId = item.Id }, new { @class = "btn btn-default" })</a>
             </td>
         </tr>
     }

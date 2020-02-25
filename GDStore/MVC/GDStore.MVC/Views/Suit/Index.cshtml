@@ -1,20 +1,22 @@
-﻿@model System.Collections.Generic.List<GDStore.DAL.Interface.Domain.Alteration>
+﻿@model System.Collections.Generic.List<GDStore.DAL.Interface.Domain.Suit>
 
 @{
-    ViewBag.Title = "All alterations";
+    ViewBag.Title = "Suits for this customer";
 }
-<h2>All alterations</h2>
+<h2>Suits for this customer</h2>
 
 @{
     if (Model.Any())
     {
         <table class="table">
             <tr>
-                <th>Alteration Id</th>
-                <th>Name</th>
                 <th>Suit Id</th>
-                <th>Status</th>
-                <th>Item Id to alter</th>
+                <th>Name</th>
+                <th>Left Sleeve Id</th>
+                <th>Right Sleeve Id</th>
+                <th>Left Trouser Leg Id</th>
+                <th>Right Trouser Leg Id</th>
+                <th>Add alterations</th>
             </tr>
             @foreach (var item in Model)
             {
@@ -25,8 +27,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SuitId)
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
@@ -40,6 +42,9 @@
                         {
                             @Html.DisplayFor(modelItem => item.TrouserLegId)
                         }
+                    </td>*@
+                    <td>
+                        <a>@Html.ActionLink("Add", "Add", "Alteration", new { suitId = item.Id }, new { @class = "btn btn-default" })</a>
                     </td>
                 </tr>
             }
@@ -47,6 +52,6 @@
     }
     else
     {
-        <h2>No alterations added yet</h2>
+        <h2>No suits found for this customer</h2>
     }
 }

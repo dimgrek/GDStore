@@ -11,7 +11,7 @@ namespace GDStore.BLL.Services.Observers
 
         public async Task PreConsume<T>(ConsumeContext<T> context) where T : class
         {
-            log.Info($"{nameof(context.Message)} handler called");
+            log.Info($"{context.Message.GetType().Name} handler called");
             await context.CompleteTask; }
 
         public async Task PostConsume<T>(ConsumeContext<T> context) where T : class

@@ -46,7 +46,7 @@ namespace GDStore.Unit.Tests.Services
             };
 
             var customer = new Customer();
-            A.CallTo(() => suitRepository.GetSuitByCustomerId(It.IsAny<Guid>())).Returns(suit);
+            A.CallTo(() => suitRepository.GetAllByCustomerId(It.IsAny<Guid>())).Returns(new List<Suit>());
             A.CallTo(() => customerRepository .GetByIdAsync(It.IsAny<Guid>())).Returns(customer);
 
             //act 
