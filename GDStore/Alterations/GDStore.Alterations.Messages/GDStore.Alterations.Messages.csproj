@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Commands\AddAlterationCommand.cs" />
     <Compile Include="Commands\MakeAlterationCommand.cs" />
+    <Compile Include="Events\AlterationAddedEvent.cs" />
+    <Compile Include="Events\AlterationFinishedEvent.cs" />
+    <Compile Include="Events\PaymentDoneEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

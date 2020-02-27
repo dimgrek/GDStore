@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Automatonymous, Version=4.1.2.105, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Automatonymous.4.1.2\lib\net452\Automatonymous.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -47,6 +50,12 @@
     </Reference>
     <Reference Include="MassTransit, Version=5.1.5.1633, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MassTransit.5.1.5\lib\net452\MassTransit.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit.AutomatonymousIntegration, Version=5.1.5.1633, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MassTransit.Automatonymous.5.1.5\lib\net452\MassTransit.AutomatonymousIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit.EntityFrameworkIntegration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MassTransit.EntityFramework.3.5.7\lib\net452\MassTransit.EntityFrameworkIntegration.dll</HintPath>
     </Reference>
     <Reference Include="MassTransit.Log4NetIntegration, Version=5.1.5.1633, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MassTransit.Log4Net.5.1.5\lib\net452\MassTransit.Log4NetIntegration.dll</HintPath>
@@ -122,6 +131,10 @@
     <ProjectReference Include="..\GDStore.Alterations.Handlers\GDStore.Alterations.Handlers.csproj">
       <Project>{b1bae034-069d-416b-877d-023e23792b6f}</Project>
       <Name>GDStore.Alterations.Handlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GDStore.Alterations.Sagas\GDStore.Alterations.Sagas.csproj">
+      <Project>{28134f50-db1e-4560-b8bb-341f34f1d7c0}</Project>
+      <Name>GDStore.Alterations.Sagas</Name>
     </ProjectReference>
     <ProjectReference Include="..\GDStore.Alterations.Services\GDStore.Alterations.Services.csproj">
       <Project>{4d53c68c-39f5-48a9-8a20-f5c038d1123f}</Project>

@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Configuration;
 using GDStore.Alterations.Handlers;
+using GDStore.Alterations.Sagas;
 using GDStore.Alterations.Services;
 using GDStore.Alterations.Services.CommandBus;
 using GDStore.Alterations.Services.Services;
 using GDStore.BLL.Services.Observers;
+using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Context;
 using GDStore.DAL.SQL.Services;
 using log4net;
 using MassTransit;
+using MassTransit.EntityFrameworkIntegration.Saga;
 using MassTransit.Log4NetIntegration;
 using MassTransit.RabbitMqTransport;
+using MassTransit.Saga;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
+using Automatonymous;
 
 namespace GDStore.Alterations.Console
 {
@@ -55,11 +60,19 @@ namespace GDStore.Alterations.Console
             //Handlers
             container.RegisterType<AlterationsHandler>(new TransientLifetimeManager());
 
+            //Sagas
+            var alterationStateMachine = new AlterationStateMachine();
+            var alterationSagaRepo = AlterationSagaRepoFactory();
+
             bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 var host = cfg.Host(new Uri(rabbitMqUri), h => { });
 
-                cfg.ReceiveEndpoint(host, queueName, endPoint => { endPoint.LoadFrom(container); });
+                cfg.ReceiveEndpoint(host, queueName, endPoint =>
+                {
+                    endPoint.LoadFrom(container);
+                    endPoint.StateMachineSaga(alterationStateMachine, alterationSagaRepo.Value);
+                });
                 cfg.UseLog4Net();
             });
 
@@ -85,6 +98,13 @@ namespace GDStore.Alterations.Console
             {
                 log.Error(ex);
             }
+        }
+
+        private static Lazy<ISagaRepository<AlterationSaga>> AlterationSagaRepoFactory()
+        {
+            return new Lazy<ISagaRepository<AlterationSaga>>(
+                ()=> new EntityFrameworkSagaRepository<AlterationSaga>(
+                    ()=>new GDStoreContext()));
         }
     }
 }

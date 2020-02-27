@@ -30,14 +30,16 @@ namespace GDStore.MVC.Services
         {
             log.Info($"{nameof(AddAlteration)} called");
 
-            await alterationsCommandBus.SendAsync(new AddAlterationCommand
-            {
-                SuitId = model.SuitId,
-                Item = model.Item,
-                Length = model.Length,
-                Name = model.Name,
-                Side = model.Side
-            });
+            //await alterationsCommandBus.SendAsync(new AddAlterationCommand
+            //{
+            //    SuitId = model.SuitId,
+            //    Item = model.Item,
+            //    Length = model.Length,
+            //    Name = model.Name,
+            //    Side = model.Side
+            //});
+
+            await alterationsCommandBus.Publish
         }
 
         public async Task<List<Alteration>> GetAllBySuitId(Guid suitId)
