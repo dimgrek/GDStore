@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace GDStore.DAL.Interface.Domain
 {
@@ -7,7 +6,9 @@ namespace GDStore.DAL.Interface.Domain
     {
         public string Name { get; set; }
         public Guid CustomerId { get; set; }
-        public virtual ICollection<Sleeve> Sleeves { get; set; }
-        public virtual ICollection<TrouserLeg> TrouserLegs { get; set; }
+        public virtual Sleeve LeftSleeve { get; set; }
+        public virtual Sleeve RightSleeve { get; set; }
+        public virtual TrouserLeg LeftTrouserLeg { get; set; }
+        public virtual TrouserLeg RightTrouserLeg { get; set; }
     }
 }

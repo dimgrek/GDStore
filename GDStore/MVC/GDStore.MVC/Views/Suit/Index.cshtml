@@ -27,22 +27,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LeftSleeve.Id)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Status)
+                        @Html.DisplayFor(modelItem => item.RightSleeve.Id)
                     </td>
                     <td>
-                        @if (item.SleeveId != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.SleeveId)
-                        }
-                        @if (item.TrouserLegId != null)
-                        {
-                            @Html.DisplayFor(modelItem => item.TrouserLegId)
-                        }
-                    </td>*@
+                        @Html.DisplayFor(modelItem => item.LeftTrouserLeg.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RightTrouserLeg.Id)
+                    </td>
                     <td>
                         <a>@Html.ActionLink("Add", "Add", "Alteration", new { suitId = item.Id }, new { @class = "btn btn-default" })</a>
                     </td>

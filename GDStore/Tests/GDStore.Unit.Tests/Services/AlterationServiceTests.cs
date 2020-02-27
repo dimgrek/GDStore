@@ -34,20 +34,15 @@ namespace GDStore.Unit.Tests.Services
         public async void AddAlteration()
         {
             //arrange
-            var command = new AddAlterationCommand {Item = Item.Sleeve};
-
-            var suit = new Suit
-            {
-                Sleeves = new List<Sleeve>
-                {
-                    new Sleeve {Side = Side.Right, Id = Guid.NewGuid()},
-                    new Sleeve {Side = Side.Left, Id = Guid.NewGuid()}
-                }
-            };
+            var command = new AddAlterationCommand {Item = Item.Sleeve, Side = Side.Left};
 
             var customer = new Customer();
-            A.CallTo(() => suitRepository.GetAllByCustomerId(It.IsAny<Guid>())).Returns(new List<Suit>());
-            A.CallTo(() => customerRepository .GetByIdAsync(It.IsAny<Guid>())).Returns(customer);
+            A.CallTo(() => suitRepository.GetByIdAsync(It.IsAny<Guid>())).Returns(new Suit
+            {
+                LeftSleeve = new Sleeve {Id = Guid.NewGuid(), Side = Side.Left},
+                LeftTrouserLeg = new TrouserLeg{Id = Guid.NewGuid(), Side = Side.Left}
+            });
+            A.CallTo(() => customerRepository.GetByIdAsync(It.IsAny<Guid>())).Returns(customer);
 
             //act 
             await sut.AddAlteration(command);

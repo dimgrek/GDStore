@@ -44,24 +44,30 @@ namespace GDStore.DAL.SQL.Context
             {
                 Id = Guid.NewGuid(),
                 Name = "first suit",
-                Sleeves = new List<Sleeve> { firstLeftSleeve, firstRightSleeve },
-                TrouserLegs = new List<TrouserLeg> { firstLeftTrouserLeg, firstRightTrouserLeg }
+                LeftSleeve = firstLeftSleeve,
+                RightSleeve = firstRightSleeve,
+                LeftTrouserLeg = firstLeftTrouserLeg,
+                RightTrouserLeg = firstRightTrouserLeg
             };
 
             var secondSuit = new Suit
             {
                 Id = Guid.NewGuid(),
                 Name = "second suit",
-                Sleeves = new List<Sleeve> { secondLeftSleeve, secondRightSleeve },
-                TrouserLegs = new List<TrouserLeg> { secondLeftTrouserLeg, secondRightTrouserLeg }
+                LeftSleeve = secondLeftSleeve,
+                RightSleeve = secondRightSleeve,
+                LeftTrouserLeg = secondLeftTrouserLeg,
+                RightTrouserLeg = secondRightTrouserLeg
             };
 
             var thirdSuit = new Suit
             {
                 Id = Guid.NewGuid(),
                 Name = "third suit",
-                Sleeves = new List<Sleeve> { thirdLeftSleeve, thirdRightSleeve },
-                TrouserLegs = new List<TrouserLeg> { thirdLeftTrouserLeg, thirdRightTrouserLeg }
+                LeftSleeve = thirdLeftSleeve,
+                RightSleeve = thirdRightSleeve,
+                LeftTrouserLeg = thirdLeftTrouserLeg,
+                RightTrouserLeg = thirdRightTrouserLeg
             };
 
             context.Suits.Add(firstSuit);

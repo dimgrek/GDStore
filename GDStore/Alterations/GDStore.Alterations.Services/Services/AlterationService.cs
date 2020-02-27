@@ -45,22 +45,30 @@ namespace GDStore.Alterations.Services.Services
                 SuitId = command.SuitId
             };
 
-            if (command.Item == Item.Sleeve)
+            switch (command.Item)
             {
-                var sleeve = suit.Sleeves.FirstOrDefault(x => x.Side == command.Side);
-                if (sleeve != null)
-                {
-                    alteration.SleeveId = sleeve.Id;
-                }
-            }
-
-            if (command.Item == Item.TrouserLeg)
-            {
-                var trouserLeg = suit.TrouserLegs.FirstOrDefault(x => x.Side == command.Side);
-                if (trouserLeg != null)
-                {
-                    alteration.TrouserLegId = trouserLeg.Id;
-                }
+                case Item.Sleeve:
+                    switch (command.Side)
+                    {
+                        case Side.Left:
+                            alteration.SleeveId = suit.LeftSleeve.Id;
+                            break;
+                        case Side.Right:
+                            alteration.SleeveId = suit.RightSleeve.Id;
+                            break;
+                    }
+                    break;
+                case Item.TrouserLeg:
+                    switch (command.Side)
+                    {
+                        case Side.Left:
+                            alteration.TrouserLegId = suit.LeftTrouserLeg.Id;
+                            break;
+                        case Side.Right:
+                            alteration.TrouserLegId = suit.RightTrouserLeg.Id;
+                            break;
+                    }
+                    break;
             }
 
             var customer = await customerRepository.GetByIdAsync(suit.CustomerId);
