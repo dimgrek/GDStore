@@ -31,24 +31,24 @@ namespace GDStore.Alterations.Services.Services
             this.notificationCommandBus = notificationCommandBus;
         }
 
-        public async Task AddAlteration(AddAlterationCommand command)
+        public async Task<Alteration> AddAlteration(AddAlterationRequest request)
         {
             log.Info($"{nameof(AddAlteration)} called");
 
-            var suit = await suitRepository.GetByIdAsync(command.SuitId);
+            var suit = await suitRepository.GetByIdAsync(request.SuitId);
             var alteration = new Alteration
             {
-                Id = Guid.NewGuid(),
-                Name = command.Name,
+                Id = request.AlterationId,
+                Name = request.Name,
                 Status = AlterationStatus.Created,
-                Length = command.Length,
-                SuitId = command.SuitId
+                Length = request.Length,
+                SuitId = request.SuitId
             };
 
-            switch (command.Item)
+            switch (request.Item)
             {
                 case Item.Sleeve:
-                    switch (command.Side)
+                    switch (request.Side)
                     {
                         case Side.Left:
                             alteration.SleeveId = suit.LeftSleeve.Id;
@@ -59,7 +59,7 @@ namespace GDStore.Alterations.Services.Services
                     }
                     break;
                 case Item.TrouserLeg:
-                    switch (command.Side)
+                    switch (request.Side)
                     {
                         case Side.Left:
                             alteration.TrouserLegId = suit.LeftTrouserLeg.Id;
@@ -72,14 +72,19 @@ namespace GDStore.Alterations.Services.Services
             }
 
             var customer = await customerRepository.GetByIdAsync(suit.CustomerId);
-
-            if (customer.Alterations == null)
+            if (customer!= null)
             {
-                customer.Alterations = new List<Alteration>();
+                if (customer.Alterations == null)
+                {
+                    customer.Alterations = new List<Alteration>();
+
+                }
+                customer.Alterations.Add(alteration);
+                await customerRepository.SaveChangesAsync();
+                return alteration;
             }
 
-            customer.Alterations.Add(alteration);
-            await customerRepository.SaveChangesAsync();
+            return null;
         }
 
         public async Task MakeAlteration(MakeAlterationCommand command)
@@ -91,8 +96,8 @@ namespace GDStore.Alterations.Services.Services
             {
                 alteration.Status = AlterationStatus.Finished;
                 await alterationRepository.SaveChangesAsync();
-                var customer = await customerRepository.GetByIdAsync(command.CustomerId);
-                await notificationCommandBus.SendAsync(new SendEmailCommand { Email = customer.Email });
+                //var customer = await customerRepository.GetByIdAsync(command.CustomerId);
+                //await notificationCommandBus.SendAsync(new SendEmailCommand { Email = customer.Email });
             }
         }
     }

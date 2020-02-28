@@ -34,7 +34,7 @@ namespace GDStore.Unit.Tests.Services
         public async void AddAlteration()
         {
             //arrange
-            var command = new AddAlterationCommand {Item = Item.Sleeve, Side = Side.Left};
+            var command = new AddAlterationRequest {Item = Item.Sleeve, Side = Side.Left};
 
             var customer = new Customer();
             A.CallTo(() => suitRepository.GetByIdAsync(It.IsAny<Guid>())).Returns(new Suit

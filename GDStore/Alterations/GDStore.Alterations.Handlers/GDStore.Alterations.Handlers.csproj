@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
+      <Project>{E2F25388-FEB7-4FDF-8091-C4B10C008FB6}</Project>
+      <Name>GDStore.DAL.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.Alterations.Messages\GDStore.Alterations.Messages.csproj">
       <Project>{fe25eacd-7b43-4bd7-a27e-2187207de803}</Project>
       <Name>GDStore.Alterations.Messages</Name>

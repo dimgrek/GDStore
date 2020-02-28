@@ -14,7 +14,7 @@ namespace GDStore.Alterations.Sagas
 
         public AlterationStateMachine()
         {
-            InstanceState(x => x.CurrentStatus.ToString());
+            InstanceState(x => x.CurrentState);
 
             Event(() => AlterationAdded, x => x.CorrelateById(ctx => ctx.Message.Id));
             Event(() => AlterationFinished, x => x.CorrelateById(ctx => ctx.Message.Id));
@@ -27,17 +27,11 @@ namespace GDStore.Alterations.Sagas
                     .TransitionTo(Active)
             );
 
-            Initially(
+            During(Active,
                 When(PaymentDone)
                     .Then(ctx => log.Info($"{nameof(AlterationStateMachine)}: {nameof(PaymentDoneEvent)} handled"))
-                    .Publish(( ctx) => new MakeAlterationCommand
-                    {
-                        //AlterationId = ctx.Data.AlterationId
-                    })
+                    .Publish(ctx => new MakeAlterationCommand { AlterationId = ctx.Data.AlterationId })
                     .TransitionTo(Active));
-
-
-            //.ThenAsync(ctx => HandlePayment(ctx))
 
         }
 
@@ -52,12 +46,12 @@ namespace GDStore.Alterations.Sagas
 
         private static void SetInitialState(BehaviorContext<AlterationSaga, AlterationAddedEvent> ctx)
         {
-            ctx.Instance.AlterationId = ctx.Data.AlterationId;
+            ctx.Instance.CorrelationId = Guid.NewGuid();
+            //ctx.Instance.AlterationId = ctx.Data.AlterationId;
             ctx.Instance.Created = DateTime.Now;
         }
 
         public State Active { get; private set; }
-
         public Event<AlterationAddedEvent> AlterationAdded { get; private set; }
         public Event<AlterationFinishedEvent> AlterationFinished { get; private set; }
         public Event<PaymentDoneEvent> PaymentDone { get; private set; }

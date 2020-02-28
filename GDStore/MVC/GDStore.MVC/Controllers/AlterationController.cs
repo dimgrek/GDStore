@@ -35,8 +35,15 @@ namespace GDStore.MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([Bind(Include = "SuitId,Name,Item,Side,Length")] AlterationModel model)
         {
-            await alterationService.AddAlteration(model);
-            return RedirectToAction(nameof(AlterationsBySuitId), new { model.SuitId});
+            var alteration = await alterationService.AddAlteration(model);
+            if (alteration != null)
+            {
+                return RedirectToAction(nameof(AlterationsBySuitId), new { model.SuitId});
+            }
+
+            return RedirectToAction(nameof(Index));
+
+            //return FiledToCreateAlteration();
         }
     }
 }

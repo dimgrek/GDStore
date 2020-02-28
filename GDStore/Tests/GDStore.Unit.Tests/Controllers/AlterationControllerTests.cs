@@ -25,7 +25,7 @@ namespace GDStore.Unit.Tests.Controllers
         {
             //arrange
             var model = new AlterationModel{SuitId = Guid.NewGuid()};
-            alterationService.Setup(x => x.AddAlteration(It.IsAny<AlterationModel>())).Returns(Task.CompletedTask);
+            //alterationService.Setup(x => x.AddAlteration(It.IsAny<AlterationModel>())).Returns(Task.CompletedTask);
             
             //act
 

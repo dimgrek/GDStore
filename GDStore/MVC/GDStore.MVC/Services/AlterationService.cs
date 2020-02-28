@@ -3,43 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
+using GDStore.Alterations.Messages.Responses;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
-using GDStore.MVC.CommandBus;
 using GDStore.MVC.Models;
 using log4net;
+using MassTransit;
 
 namespace GDStore.MVC.Services
 {
     public class AlterationService : IAlterationService
     {
         private readonly IAlterationRepository alterationRepository;
-        private readonly IAlterationsCommandBus alterationsCommandBus;
+        private readonly IRequestClient<AddAlterationRequest, AddAlterationResponse> alterationClient;
         private readonly ILog log;
 
         public AlterationService(IAlterationRepository alterationRepository,
-            IAlterationsCommandBus alterationsCommandBus,
+            IRequestClient<AddAlterationRequest, AddAlterationResponse> alterationClient, 
             ILog log)
         {
             this.alterationRepository = alterationRepository;
-            this.alterationsCommandBus = alterationsCommandBus;
+            this.alterationClient = alterationClient;
             this.log = log;
         }
 
-        public async Task AddAlteration(AlterationModel model)
+        public async Task<Alteration> AddAlteration(AlterationModel model)
         {
             log.Info($"{nameof(AddAlteration)} called");
 
-            //await alterationsCommandBus.SendAsync(new AddAlterationCommand
-            //{
-            //    SuitId = model.SuitId,
-            //    Item = model.Item,
-            //    Length = model.Length,
-            //    Name = model.Name,
-            //    Side = model.Side
-            //});
+           var response =  await alterationClient.Request(new AddAlterationRequest
+            {
+                SuitId = model.SuitId,
+                Length = model.Length,
+                Item = model.Item,
+                Name = model.Name,
+                Side = model.Side,
+                AlterationId = Guid.NewGuid()
+            });
 
-            await alterationsCommandBus.Publish
+            if (response != null)
+            {
+                return new Alteration
+                {
+                    Id = response.Id,
+                    SuitId = response.SuitId,
+                    Length = response.Length,
+                    Name = response.Name,
+                    SleeveId = response.SleeveId,
+                    Status = response.Status,
+                    TrouserLegId = response.TrouserLegId
+                };
+            }
+
+            return null;
         }
 
         public async Task<List<Alteration>> GetAllBySuitId(Guid suitId)

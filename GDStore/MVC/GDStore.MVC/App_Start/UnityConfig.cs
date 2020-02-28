@@ -1,5 +1,7 @@
 using System;
 using System.Configuration;
+using GDStore.Alterations.Messages.Commands;
+using GDStore.Alterations.Messages.Responses;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Context;
 using GDStore.DAL.SQL.Services;
@@ -73,6 +75,9 @@ namespace GDStore.MVC
                 throw new ConfigurationErrorsException("GDStore.Payments.RabbitMQ is empty");
             }
 
+            if (!int.TryParse(ConfigurationManager.AppSettings["GDStore.RabbitMQ.Timeout"], out int rabbitMqTimeout))
+                throw new ConfigurationErrorsException("GDStore.RabbitMQ.Timeout is empty or invalid");
+
             var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 cfg.Host(new Uri(rabbitMqUri), h => { });
@@ -88,6 +93,13 @@ namespace GDStore.MVC
             container.RegisterType<IPaymentsCommandBus, PaymentsCommandBus>(
                 new PerRequestLifetimeManager(),
                 new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(paymentsQueue)));
+            
+            //Request response clients
+            container.RegisterInstance(bus.CreateRequestClient<AddAlterationRequest, AddAlterationResponse>(
+                new Uri(alterationsQueue), 
+                TimeSpan.FromSeconds(rabbitMqTimeout)));
+
+            bus.Start();
         }
     }
 }
