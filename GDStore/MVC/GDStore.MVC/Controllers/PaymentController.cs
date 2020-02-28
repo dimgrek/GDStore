@@ -14,10 +14,10 @@ namespace GDStore.MVC.Controllers
             this.paymentService = paymentService;
         }
 
-        public async Task<ActionResult> Make([Bind(Include = "AlterationId,CustomerId")] PaymentModel model)
+        public async Task<ActionResult> Make([Bind(Include = "AlterationId,SuitId")] PaymentModel model)
         {
             await paymentService.MakePayment(model);
-            return RedirectToAction("AlterationsBySuitId", "Alteration", new { model.CustomerId });
+            return RedirectToAction("AlterationsBySuitId", "Alteration", new { model.SuitId });
         }
     }
 }

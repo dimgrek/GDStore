@@ -44,6 +44,10 @@ namespace GDStore.Alterations.Handlers
         public async Task Consume(ConsumeContext<MakeAlterationCommand> context)
         {
             await alterationService.MakeAlteration(context.Message);
+            await context.Publish(new AlterationFinishedEvent
+            {
+                AlterationId = context.Message.AlterationId
+            });
         }
     }
 }

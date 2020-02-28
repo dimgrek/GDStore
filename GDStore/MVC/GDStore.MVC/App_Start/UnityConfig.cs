@@ -68,13 +68,7 @@ namespace GDStore.MVC
             {
                 throw new ConfigurationErrorsException("GDStore.Alterations.RabbitMQ is empty");
             }
-
-            var paymentsQueue = ConfigurationManager.AppSettings["GDStore.Payments.RabbitMQ.QueueURI"];
-            if (string.IsNullOrEmpty(alterationsQueue))
-            {
-                throw new ConfigurationErrorsException("GDStore.Payments.RabbitMQ is empty");
-            }
-
+            
             if (!int.TryParse(ConfigurationManager.AppSettings["GDStore.RabbitMQ.Timeout"], out int rabbitMqTimeout))
                 throw new ConfigurationErrorsException("GDStore.RabbitMQ.Timeout is empty or invalid");
 
@@ -84,15 +78,7 @@ namespace GDStore.MVC
                 cfg.UseLog4Net();
             });
 
-            //Command buses 
             container.RegisterInstance(bus);
-            container.RegisterType<IAlterationsCommandBus, AlterationsCommandBus>(
-                new PerRequestLifetimeManager(),
-                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(alterationsQueue)));
-
-            container.RegisterType<IPaymentsCommandBus, PaymentsCommandBus>(
-                new PerRequestLifetimeManager(),
-                new InjectionConstructor(new ResolvedParameter<IBusControl>(), new Uri(paymentsQueue)));
             
             //Request response clients
             container.RegisterInstance(bus.CreateRequestClient<AddAlterationRequest, AddAlterationResponse>(

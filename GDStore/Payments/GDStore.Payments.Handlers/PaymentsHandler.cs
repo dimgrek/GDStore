@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace GDStore.Payments.Handlers
 {
-    public class PaymentsHandler : IConsumer<PaymentDoneCommand>
+    public class PaymentsHandler : IConsumer<MakePaymentCommand>
     {
         private readonly IPaymentsService paymentsService;
 
@@ -14,7 +14,7 @@ namespace GDStore.Payments.Handlers
             this.paymentsService = paymentsService;
         }
 
-        public async Task Consume(ConsumeContext<PaymentDoneCommand> context)
+        public async Task Consume(ConsumeContext<MakePaymentCommand> context)
         {
             await paymentsService.HandlePayment(context.Message);
         }

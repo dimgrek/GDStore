@@ -1,5 +1,4 @@
-﻿using System;
-using GDStore.BLL.Interfaces.Models;
+﻿using GDStore.BLL.Interfaces.Models;
 
 namespace GDStore.DAL.Interface.Domain
 {
@@ -7,6 +6,5 @@ namespace GDStore.DAL.Interface.Domain
     {
         public int Length { get; set; }
         public Side Side { get; set; }
-        public Guid SuitId { get; set; }
     }
 }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
-using GDStore.Alterations.Services.CommandBus;
 using GDStore.BLL.Interfaces.Models;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
-using GDStore.Notifications.Messages.Commands;
-using log4net;
+using log4net;  
 
 namespace GDStore.Alterations.Services.Services
 {
@@ -17,18 +13,15 @@ namespace GDStore.Alterations.Services.Services
         private readonly ISuitRepository suitRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly IAlterationRepository alterationRepository;
-        private readonly INotificationCommandBus notificationCommandBus;
         private static readonly ILog log = LogManager.GetLogger(typeof(AlterationService));
 
         public AlterationService(ISuitRepository suitRepository, 
             ICustomerRepository customerRepository, 
-            IAlterationRepository alterationRepository,
-            INotificationCommandBus notificationCommandBus)
+            IAlterationRepository alterationRepository)
         {
             this.suitRepository = suitRepository;
             this.customerRepository = customerRepository;
             this.alterationRepository = alterationRepository;
-            this.notificationCommandBus = notificationCommandBus;
         }
 
         public async Task<Alteration> AddAlteration(AddAlterationRequest request)
@@ -89,15 +82,13 @@ namespace GDStore.Alterations.Services.Services
 
         public async Task MakeAlteration(MakeAlterationCommand command)
         {
-            log.Info($"{nameof(MakeAlterationCommand)} called");
+            log.Info($"{nameof(MakeAlteration)} called");
 
             var alteration = await alterationRepository.GetByIdAsync(command.AlterationId);
             if (alteration != null)
             {
                 alteration.Status = AlterationStatus.Finished;
                 await alterationRepository.SaveChangesAsync();
-                //var customer = await customerRepository.GetByIdAsync(command.CustomerId);
-                //await notificationCommandBus.SendAsync(new SendEmailCommand { Email = customer.Email });
             }
         }
     }

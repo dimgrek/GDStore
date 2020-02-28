@@ -97,6 +97,14 @@
       <Project>{e2f25388-feb7-4fdf-8091-c4b10c008fb6}</Project>
       <Name>GDStore.DAL.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Notifications\GDStore.Notifications.Messages\GDStore.Notifications.Messages.csproj">
+      <Project>{c3ac3323-8c10-46ac-bd69-c957b28a69a4}</Project>
+      <Name>GDStore.Notifications.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Payments\GDStore.Payments.Messages\GDStore.Payments.Messages.csproj">
+      <Project>{af4f32c9-aa66-4422-92f4-dc59b723d5f4}</Project>
+      <Name>GDStore.Payments.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.Alterations.Messages\GDStore.Alterations.Messages.csproj">
       <Project>{fe25eacd-7b43-4bd7-a27e-2187207de803}</Project>
       <Name>GDStore.Alterations.Messages</Name>

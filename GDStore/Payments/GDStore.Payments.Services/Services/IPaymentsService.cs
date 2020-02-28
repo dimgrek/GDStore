@@ -5,6 +5,6 @@ namespace GDStore.Payments.Services.Services
 {
     public interface IPaymentsService
     {
-        Task HandlePayment(PaymentDoneCommand command);
+        Task HandlePayment(MakePaymentCommand command);
     }
 }

@@ -1,31 +1,27 @@
 ﻿using System.Threading.Tasks;
-using GDStore.MVC.CommandBus;
+using GDStore.Alterations.Messages.Events;
 using GDStore.MVC.Models;
-using GDStore.Payments.Messages.Commands;
 using log4net;
+using MassTransit;
 
 namespace GDStore.MVC.Services
 {
     public class PaymentService : IPaymentService
     {
-        private readonly IPaymentsCommandBus paymentsCommandBus;
         private readonly ILog log;
+        private readonly IBusControl bus;
 
-        public PaymentService(IPaymentsCommandBus paymentsCommandBus, ILog log)
+        public PaymentService(ILog log, IBusControl bus)
         {
-            this.paymentsCommandBus = paymentsCommandBus;
             this.log = log;
+            this.bus = bus;
         }
 
         public async Task MakePayment(PaymentModel model)
         {
             log.Info($"{nameof(MakePayment)} called");
 
-            await paymentsCommandBus.SendAsync(new PaymentDoneCommand
-            {
-                AlterationId = model.AlterationId,
-                CustomerId = model.CustomerId
-            });
+            await bus.Publish(new MakePaymentEvent { AlterationId = model.AlterationId });
         }
     }
 }

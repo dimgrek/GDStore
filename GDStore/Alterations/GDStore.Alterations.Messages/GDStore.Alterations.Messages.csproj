@@ -45,6 +45,7 @@
     <Compile Include="Commands\MakeAlterationCommand.cs" />
     <Compile Include="Events\AlterationAddedEvent.cs" />
     <Compile Include="Events\AlterationFinishedEvent.cs" />
+    <Compile Include="Events\MakePaymentEvent.cs" />
     <Compile Include="Events\PaymentDoneEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\AddAlterationResponse.cs" />

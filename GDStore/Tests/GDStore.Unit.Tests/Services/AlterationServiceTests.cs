@@ -18,16 +18,14 @@ namespace GDStore.Unit.Tests.Services
         private readonly ISuitRepository suitRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly IAlterationRepository alterationRepository;
-        private readonly INotificationCommandBus notificationCommandBus;
 
         public AlterationServiceTests()
         {
             suitRepository = A.Fake<ISuitRepository>();
             customerRepository = A.Fake<ICustomerRepository>();
             alterationRepository = A.Fake<IAlterationRepository>();
-            notificationCommandBus = A.Fake<INotificationCommandBus>();
 
-            sut = new AlterationService(suitRepository, customerRepository, alterationRepository, notificationCommandBus);
+            sut = new AlterationService(suitRepository, customerRepository, alterationRepository);
         }
 
         [Fact]

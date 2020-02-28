@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using GDStore.DAL.Interface.Domain;
 using GDStore.MVC.Controllers;
 using GDStore.MVC.Models;
 using GDStore.MVC.Services;
@@ -25,7 +26,7 @@ namespace GDStore.Unit.Tests.Controllers
         {
             //arrange
             var model = new AlterationModel{SuitId = Guid.NewGuid()};
-            //alterationService.Setup(x => x.AddAlteration(It.IsAny<AlterationModel>())).Returns(Task.CompletedTask);
+            alterationService.Setup(x => x.AddAlteration(It.IsAny<AlterationModel>())).ReturnsAsync(new Alteration());
             
             //act
 
