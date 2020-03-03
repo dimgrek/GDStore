@@ -71,6 +71,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
+      <Project>{e2f25388-feb7-4fdf-8091-c4b10c008fb6}</Project>
+      <Name>GDStore.DAL.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\GDStore.DAL.SQL\GDStore.DAL.SQL.csproj">
+      <Project>{fa3a6c39-c758-496b-afdf-8b4715c32564}</Project>
+      <Name>GDStore.DAL.SQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GDStore.Notifications.Messages\GDStore.Notifications.Messages.csproj">
       <Project>{c3ac3323-8c10-46ac-bd69-c957b28a69a4}</Project>
       <Name>GDStore.Notifications.Messages</Name>

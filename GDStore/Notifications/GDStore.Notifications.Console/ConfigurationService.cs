@@ -1,5 +1,8 @@
 ﻿using System;
 using GDStore.BLL.Services.Observers;
+using GDStore.DAL.Interface.Services;
+using GDStore.DAL.SQL.Context;
+using GDStore.DAL.SQL.Services;
 using GDStore.Notifications.Handlers;
 using GDStore.Notifications.Services;
 using log4net;
@@ -30,7 +33,10 @@ namespace GDStore.Notifications.Console
             log.Info("Initializing services...");
 
             container = new UnityContainer();
-
+            container.RegisterType<GDStoreContext>();
+            container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
+            container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
+            container.RegisterType<ICustomerRepository, CustomerRepository>(new TransientLifetimeManager());
             container.RegisterType<INotificationService, NotificationService>(new TransientLifetimeManager());
 
             RabbitMQConfiguration();
