@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using GDStore.BLL.Interfaces.Models;
+using GDStore.BLL.Interfaces.Enums;
 using GDStore.DAL.Interface.Domain;
 
 namespace GDStore.DAL.SQL.Context

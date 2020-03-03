@@ -2,7 +2,6 @@
 using System.Configuration;
 using GDStore.Alterations.Handlers;
 using GDStore.Alterations.Sagas;
-using GDStore.Alterations.Services;
 using GDStore.Alterations.Services.CommandBus;
 using GDStore.Alterations.Services.Services;
 using GDStore.BLL.Services.Observers;
@@ -19,7 +18,6 @@ using MassTransit.Saga;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
-using Automatonymous;
 
 namespace GDStore.Alterations.Console
 {

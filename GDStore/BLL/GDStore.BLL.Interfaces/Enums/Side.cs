@@ -1,4 +1,4 @@
-﻿namespace GDStore.BLL.Interfaces.Models
+﻿namespace GDStore.BLL.Interfaces.Enums
 {
     public enum Side
     {

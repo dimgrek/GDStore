@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
-using GDStore.BLL.Interfaces.Models;
+using GDStore.Alterations.Messages.Requests;
+using GDStore.BLL.Interfaces.Enums;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using log4net;  

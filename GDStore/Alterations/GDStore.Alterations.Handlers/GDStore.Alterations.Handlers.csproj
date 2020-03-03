@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\GDStore.BLL.Interfaces\GDStore.BLL.Interfaces.csproj">
+      <Project>{FE93A680-181B-4844-810E-DBE0F38F2FED}</Project>
+      <Name>GDStore.BLL.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DAL\GDStore.DAL.Interface\GDStore.DAL.Interface.csproj">
       <Project>{E2F25388-FEB7-4FDF-8091-C4B10C008FB6}</Project>
       <Name>GDStore.DAL.Interface</Name>

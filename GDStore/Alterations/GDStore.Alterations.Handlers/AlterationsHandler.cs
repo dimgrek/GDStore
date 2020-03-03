@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GDStore.Alterations.Messages.Commands;
 using GDStore.Alterations.Messages.Events;
+using GDStore.Alterations.Messages.Requests;
 using GDStore.Alterations.Messages.Responses;
 using GDStore.Alterations.Services.Services;
 using MassTransit;

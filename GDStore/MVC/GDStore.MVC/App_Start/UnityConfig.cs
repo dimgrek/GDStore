@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using GDStore.Alterations.Messages.Commands;
+using GDStore.Alterations.Messages.Requests;
 using GDStore.Alterations.Messages.Responses;
 using GDStore.DAL.Interface.Services;
 using GDStore.DAL.SQL.Context;

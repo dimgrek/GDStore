@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AddAlterationRequest.cs" />
+    <Compile Include="Requests\AddAlterationRequest.cs" />
     <Compile Include="Commands\MakeAlterationCommand.cs" />
     <Compile Include="Events\AlterationAddedEvent.cs" />
     <Compile Include="Events\AlterationFinishedEvent.cs" />

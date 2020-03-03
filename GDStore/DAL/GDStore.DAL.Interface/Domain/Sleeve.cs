@@ -1,5 +1,5 @@
 ﻿using System;
-using GDStore.BLL.Interfaces.Models;
+using GDStore.BLL.Interfaces.Enums;
 
 namespace GDStore.DAL.Interface.Domain
 {

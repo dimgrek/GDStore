@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using GDStore.BLL.Interfaces.Models;
+using GDStore.BLL.Interfaces.Enums;
 
 namespace GDStore.MVC.Models
 {

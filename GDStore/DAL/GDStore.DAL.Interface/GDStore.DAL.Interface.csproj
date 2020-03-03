@@ -69,7 +69,6 @@
   <ItemGroup>
     <Compile Include="Domain\Alteration.cs" />
     <Compile Include="Domain\AlterationSaga.cs" />
-    <Compile Include="Domain\AlterationStatus.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\Sleeve.cs" />
     <Compile Include="Domain\SQLDataEntity.cs" />

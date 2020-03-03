@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using FakeItEasy;
 using GDStore.Alterations.Messages.Commands;
+using GDStore.Alterations.Messages.Requests;
 using GDStore.Alterations.Services.CommandBus;
 using GDStore.Alterations.Services.Services;
-using GDStore.BLL.Interfaces.Models;
+using GDStore.BLL.Interfaces.Enums;
 using GDStore.DAL.Interface.Domain;
 using GDStore.DAL.Interface.Services;
 using Moq;

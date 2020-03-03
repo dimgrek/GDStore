@@ -1,7 +1,7 @@
 ﻿using System;
-using GDStore.BLL.Interfaces.Models;
+using GDStore.BLL.Interfaces.Enums;
 
-namespace GDStore.Alterations.Messages.Commands
+namespace GDStore.Alterations.Messages.Requests
 {
     public class AddAlterationRequest
     {
