@@ -13,6 +13,7 @@ using MassTransit.Log4NetIntegration;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Injection;
+using Unity.Lifetime;
 using Unity.log4net;
 
 namespace GDStore.MVC
@@ -50,13 +51,13 @@ namespace GDStore.MVC
         public static void RegisterTypes(IUnityContainer container)
         {
             container.AddNewExtension<Log4NetExtension>();
-            container.RegisterType<GDStoreContext>();
-            container.RegisterType<ICustomerRepository, CustomerRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<ISuitRepository, SuitRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<ISuitService, SuitService>(new PerRequestLifetimeManager());
-            container.RegisterType<IAlterationRepository, AlterationRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<IAlterationService, AlterationService>(new PerRequestLifetimeManager());
-            container.RegisterType<IPaymentService, PaymentService>(new PerRequestLifetimeManager());
+            container.RegisterType<GDStoreContext>(new TransientLifetimeManager());
+            container.RegisterType<ICustomerRepository, CustomerRepository>(new TransientLifetimeManager());
+            container.RegisterType<ISuitRepository, SuitRepository>(new TransientLifetimeManager());
+            container.RegisterType<ISuitService, SuitService>(new TransientLifetimeManager());
+            container.RegisterType<IAlterationRepository, AlterationRepository>(new TransientLifetimeManager());
+            container.RegisterType<IAlterationService, AlterationService>(new TransientLifetimeManager());
+            container.RegisterType<IPaymentService, PaymentService>(new TransientLifetimeManager());
 
             var rabbitMqUri = ConfigurationManager.ConnectionStrings["GDStore.RabbitMq.ConnectionString"].ConnectionString;
             if (string.IsNullOrEmpty(rabbitMqUri))

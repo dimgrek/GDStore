@@ -36,14 +36,15 @@ namespace GDStore.MVC.Controllers
         public async Task<ActionResult> Create([Bind(Include = "SuitId,Name,Item,Side,Length")] AlterationModel model)
         {
             var alteration = await alterationService.AddAlteration(model);
-            if (alteration != null)
-            {
-                return RedirectToAction(nameof(AlterationsBySuitId), new { model.SuitId});
-            }
+            return RedirectToAction(alteration != null ? 
+                nameof(AlterationsBySuitId) : 
+                nameof(FailedToAddAlteration), new {model.SuitId});
+        }
 
-            return RedirectToAction(nameof(Index));
-
-            //return FiledToCreateAlteration();
+        public async Task<ActionResult> FailedToAddAlteration(Guid suitId)
+        {
+            ViewBag.SuitId = suitId;
+            return View();
         }
     }
 }
