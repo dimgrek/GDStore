@@ -242,6 +242,7 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Alteration\AlterationsBySuitId.cshtml" />
     <Content Include="Views\Suit\Index.cshtml" />
+    <Content Include="Views\Alteration\FailedToAddAlteration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

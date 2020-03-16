@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using GDStore.DAL.Interface.Services;
 using GDStore.Notifications.Messages.Commands;
 using log4net;
